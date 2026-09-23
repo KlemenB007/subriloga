@@ -7,381 +7,489 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Subriloga">
-<meta name="theme-color" content="#F3F7FA" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#0D1115" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#161B20" media="(prefers-color-scheme: dark)">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon-512.png">
 <link rel="icon" type="image/png" href="icon-192.png">
 <title>Subriloga</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
-/* ================= TOKENS ================= */
+/* ================= TOKENS =================
+   Subrident: modra RGB(98,175,224) #62AFE0 · siva RGB(96,96,98) #606062 · bela */
 :root{
-  /* Subrident: modra RGB(98,175,224), siva RGB(96,96,98), bela */
   --brand:#62AFE0; --brand-grey:#606062;
-  --bg:#F3F7FA; --bg-raised:#FFFFFF; --card:#FFFFFF; --card-hi:#F4F8FB;
-  --line:#DCE5EC; --line-soft:#E9EFF4;
-  --text:#23272C; --text-soft:#606062; --text-faint:#8B9299;
-  --acc:#1F72AA; --acc-ink:#FFFFFF; --acc-soft:#E3F1FA; --acc-glow:rgba(98,175,224,.28);
-  --ok:#1F8A5B; --ok-soft:#E1F3EA; --warn:#B26A0B; --warn-soft:#FCF0DC; --crit:#C8392E; --crit-soft:#FCE5E2;
-  --info:#1F72AA; --info-soft:#E3F1FA; --mute-soft:#EEF2F5;
-  --shadow:0 1px 2px rgba(30,50,70,.05),0 6px 20px rgba(30,50,70,.07);
-  --shadow-lg:0 20px 50px rgba(20,40,60,.18);
-  --nav-bg:rgba(255,255,255,.9);
-  --glow1:rgba(98,175,224,.22); --glow2:rgba(96,96,98,.07);
-  --r-lg:18px; --r-md:13px; --r-sm:9px;
-  --font:"Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-  --mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
-  --nav-h:66px;
+  --bg:#F3F5F7; --surface:#FFFFFF; --surface-2:#F7F9FA; --hover:#F1F5F8;
+  --line:#DFE4E8; --line-2:#ECEFF2;
+  --text:#1E2226; --text-2:#606062; --text-3:#8A9096;
+  --acc:#1F6FA3; --acc-hover:#185C88; --acc-ink:#FFFFFF; --acc-soft:#E6F2FA; --acc-line:#B9DBF1;
+  --ok:#1E7F55; --ok-soft:#E3F4EC; --warn:#A8650A; --warn-soft:#FDF1DE; --crit:#C2362B; --crit-soft:#FBE6E4;
+  --info:#1F6FA3; --info-soft:#E6F2FA; --mute-soft:#EEF1F4;
+  --shadow-sm:0 1px 2px rgba(20,30,40,.06);
+  --shadow:0 1px 2px rgba(20,30,40,.05),0 4px 14px rgba(20,30,40,.06);
+  --shadow-lg:0 12px 40px rgba(15,25,35,.18);
+  --scrim:rgba(15,22,30,.42);
+  --r:10px; --r-sm:7px; --r-lg:14px;
+  --font:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  --side-w:248px; --top-h:60px; --tab-h:62px;
   color-scheme:light;
 }
 html[data-theme="dark"]{
-  --bg:#0D1115; --bg-raised:#141A20; --card:#171D24; --card-hi:#1E262E;
-  --line:#28323C; --line-soft:#1F2830;
-  --text:#EEF3F7; --text-soft:#A7B2BC; --text-faint:#6F7B86;
-  --acc:#62AFE0; --acc-ink:#06212F; --acc-soft:rgba(98,175,224,.14); --acc-glow:rgba(98,175,224,.35);
-  --ok:#5CC592; --ok-soft:rgba(92,197,146,.14); --warn:#E9AE55; --warn-soft:rgba(233,174,85,.14); --crit:#F08377; --crit-soft:rgba(240,131,119,.14);
+  --bg:#0F1316; --surface:#161B20; --surface-2:#1B2127; --hover:#1F262D;
+  --line:#2A3239; --line-2:#222A31;
+  --text:#E8EDF1; --text-2:#A9B3BC; --text-3:#717C86;
+  --acc:#62AFE0; --acc-hover:#86C3EA; --acc-ink:#06202E; --acc-soft:rgba(98,175,224,.14); --acc-line:rgba(98,175,224,.4);
+  --ok:#5CC592; --ok-soft:rgba(92,197,146,.14); --warn:#E6AA52; --warn-soft:rgba(230,170,82,.14); --crit:#EE8277; --crit-soft:rgba(238,130,119,.14);
   --info:#62AFE0; --info-soft:rgba(98,175,224,.14); --mute-soft:rgba(160,175,190,.10);
-  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.25);
-  --shadow-lg:0 24px 60px rgba(0,0,0,.5);
-  --nav-bg:rgba(20,26,32,.9);
-  --glow1:rgba(98,175,224,.16); --glow2:rgba(96,96,98,.12);
+  --shadow-sm:0 1px 2px rgba(0,0,0,.3); --shadow:0 1px 2px rgba(0,0,0,.3),0 6px 18px rgba(0,0,0,.25); --shadow-lg:0 16px 48px rgba(0,0,0,.5);
+  --scrim:rgba(0,0,0,.55);
   color-scheme:dark;
 }
 @media (prefers-color-scheme:dark){ html[data-theme="auto"]{
-  --bg:#0D1115; --bg-raised:#141A20; --card:#171D24; --card-hi:#1E262E;
-  --line:#28323C; --line-soft:#1F2830;
-  --text:#EEF3F7; --text-soft:#A7B2BC; --text-faint:#6F7B86;
-  --acc:#62AFE0; --acc-ink:#06212F; --acc-soft:rgba(98,175,224,.14); --acc-glow:rgba(98,175,224,.35);
-  --ok:#5CC592; --ok-soft:rgba(92,197,146,.14); --warn:#E9AE55; --warn-soft:rgba(233,174,85,.14); --crit:#F08377; --crit-soft:rgba(240,131,119,.14);
+  --bg:#0F1316; --surface:#161B20; --surface-2:#1B2127; --hover:#1F262D;
+  --line:#2A3239; --line-2:#222A31;
+  --text:#E8EDF1; --text-2:#A9B3BC; --text-3:#717C86;
+  --acc:#62AFE0; --acc-hover:#86C3EA; --acc-ink:#06202E; --acc-soft:rgba(98,175,224,.14); --acc-line:rgba(98,175,224,.4);
+  --ok:#5CC592; --ok-soft:rgba(92,197,146,.14); --warn:#E6AA52; --warn-soft:rgba(230,170,82,.14); --crit:#EE8277; --crit-soft:rgba(238,130,119,.14);
   --info:#62AFE0; --info-soft:rgba(98,175,224,.14); --mute-soft:rgba(160,175,190,.10);
-  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.25);
-  --shadow-lg:0 24px 60px rgba(0,0,0,.5);
-  --nav-bg:rgba(20,26,32,.9);
-  --glow1:rgba(98,175,224,.16); --glow2:rgba(96,96,98,.12);
+  --shadow-sm:0 1px 2px rgba(0,0,0,.3); --shadow:0 1px 2px rgba(0,0,0,.3),0 6px 18px rgba(0,0,0,.25); --shadow-lg:0 16px 48px rgba(0,0,0,.5);
+  --scrim:rgba(0,0,0,.55);
   color-scheme:dark;
 }}
 
 /* ================= BASE ================= */
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+*,*::before,*::after{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 [hidden]{display:none!important}
-html{-webkit-text-size-adjust:100%;background:var(--bg);overflow-x:hidden}
-body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font);font-size:15px;line-height:1.45;min-height:100vh;min-height:100dvh;padding-top:env(safe-area-inset-top);overflow-x:hidden}
-body::before{content:"";position:fixed;inset:-2px;z-index:-1;pointer-events:none;background:
-  radial-gradient(ellipse 90vw 50vh at 0% -8%,var(--glow1),transparent 70%),
-  radial-gradient(ellipse 70vw 45vh at 105% 0%,var(--glow2),transparent 70%),var(--bg)}
-button,input,select,textarea{font:inherit;color:inherit}
+html{-webkit-text-size-adjust:100%;background:var(--bg)}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font);font-size:14.5px;line-height:1.45;min-height:100vh;min-height:100dvh;overflow-x:hidden}
+button,input,select,textarea{font:inherit;color:inherit;letter-spacing:inherit}
 button{cursor:pointer}
 a{color:var(--acc)}
-:focus-visible{outline:2px solid var(--acc);outline-offset:2px;border-radius:6px}
-.num,.mono{font-variant-numeric:tabular-nums}
-.mono{font-family:var(--mono);font-size:.9em}
-.muted{color:var(--text-soft)} .faint{color:var(--text-faint)} .small{font-size:13px} .xs{font-size:12px}
-.row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+img,svg{max-width:100%}
+:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+.num{font-variant-numeric:tabular-nums}
+.mono{font-family:var(--mono);font-size:.92em;font-variant-numeric:tabular-nums}
+.muted{color:var(--text-2)} .faint{color:var(--text-3)} .small{font-size:13px} .xs{font-size:12px}
+.row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;min-width:0}
 .spacer{flex:1}
 .nowrap{white-space:nowrap}
+.ell{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+.wrap-any{overflow-wrap:anywhere}
 
-.wrap{max-width:720px;margin:0 auto;padding:10px 16px calc(var(--nav-h) + 48px + env(safe-area-inset-bottom))}
+/* ================= SHELL ================= */
+.shell{min-height:100vh;min-height:100dvh}
+.side{position:fixed;inset:0 auto 0 0;width:var(--side-w);background:var(--surface);border-right:1px solid var(--line);display:flex;flex-direction:column;z-index:20;padding:16px 12px calc(12px + env(safe-area-inset-bottom));overflow-y:auto}
+.brand{display:flex;align-items:center;gap:10px;padding:2px 8px 16px}
+.brand svg.mark{width:34px;height:34px;flex-shrink:0}
+.brand b{font-size:18px;font-weight:700;letter-spacing:-.01em;display:block;line-height:1.1}
+.brand b span{color:var(--brand)}
+.brand small{display:block;color:var(--text-3);font-size:11.5px;letter-spacing:.02em}
+.side-actions{display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:0 4px 14px;border-bottom:1px solid var(--line-2);margin-bottom:10px}
+.side-actions .btn{padding:9px 8px;font-size:13.5px}
+.side-actions .btn.primary{grid-column:1/-1}
+.nav{display:flex;flex-direction:column;gap:2px}
+.nav-label{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--text-3);padding:12px 10px 4px}
+.nav-item{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:var(--r-sm);border:0;background:none;color:var(--text-2);font-weight:500;text-align:left;width:100%;min-height:38px}
+.nav-item:hover{background:var(--hover);color:var(--text)}
+.nav-item.on{background:var(--acc-soft);color:var(--acc);font-weight:600}
+.nav-item .cnt{margin-left:auto;font-size:11.5px;font-weight:600;min-width:20px;text-align:center;padding:1px 6px;border-radius:99px;background:var(--mute-soft);color:var(--text-2)}
+.nav-item .cnt.crit{background:var(--crit);color:#fff}
+.side-foot{margin-top:auto;border-top:1px solid var(--line-2);padding:12px 6px 0;display:flex;align-items:center;gap:10px}
+.side-foot .who{min-width:0;flex:1}
+.side-foot .who b{display:block;font-weight:600;font-size:13.5px}
+.side-foot .who span{display:block;font-size:12px;color:var(--text-3)}
 
-/* ================= HEADER ================= */
-.top{display:flex;align-items:center;gap:11px;padding:10px 2px 14px}
-.logo-btn{display:flex;align-items:center;gap:11px;background:none;border:0;padding:0;color:inherit}
-.logo-mark{width:38px;height:38px;border-radius:11px;flex-shrink:0;display:block;box-shadow:0 4px 14px var(--acc-glow)}
-.brand-name{font-size:22px;font-weight:800;letter-spacing:-.03em;margin:0}
-.brand-name b{color:var(--brand);font-weight:800}
-.top .spacer{flex:1}
-.icon-btn{width:40px;height:40px;border-radius:12px;border:1px solid var(--line);background:var(--card);display:grid;place-items:center;color:var(--text-soft);position:relative}
-.icon-btn:active{transform:scale(.95)}
-.avatar{width:40px;height:40px;border-radius:50%;background:var(--acc-soft);color:var(--acc);font-weight:800;display:grid;place-items:center;border:0;font-size:15px}
-.sync-dot{position:absolute;right:-2px;top:-2px;width:10px;height:10px;border-radius:50%;background:var(--ok);border:2px solid var(--bg)}
-.sync-dot.off{background:var(--warn)}
+.main{margin-left:var(--side-w);min-width:0}
+.topbar{position:sticky;top:0;z-index:15;height:var(--top-h);display:flex;align-items:center;gap:10px;padding:0 24px;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid transparent}
+.topbar.scrolled{border-bottom-color:var(--line)}
+.top-title{display:none;font-size:18px;font-weight:700;letter-spacing:-.01em;min-width:0}
+.gsearch{position:relative;flex:1;max-width:480px}
+.gsearch svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--text-3);pointer-events:none}
+.gsearch input{width:100%;height:38px;padding:0 12px 0 38px;border:1px solid var(--line);border-radius:var(--r);background:var(--surface);font-size:14.5px}
+.gsearch input:focus{outline:none;border-color:var(--acc);box-shadow:0 0 0 3px var(--acc-soft)}
+.gs-results{position:absolute;left:0;right:0;top:calc(100% + 6px);background:var(--surface);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow-lg);overflow:hidden;z-index:30;max-height:60vh;overflow-y:auto}
+.gs-item{display:flex;align-items:center;gap:10px;padding:9px 12px;border:0;background:none;width:100%;text-align:left;border-bottom:1px solid var(--line-2)}
+.gs-item:last-child{border-bottom:0}
+.gs-item:hover,.gs-item.sel{background:var(--hover)}
+.icon-btn{width:38px;height:38px;border-radius:var(--r);border:1px solid var(--line);background:var(--surface);display:grid;place-items:center;color:var(--text-2);flex-shrink:0}
+.icon-btn:hover{color:var(--text);border-color:var(--text-3)}
+.avatar{width:34px;height:34px;border-radius:50%;background:var(--acc-soft);color:var(--acc);font-weight:700;display:grid;place-items:center;border:0;font-size:13px;flex-shrink:0}
+.content{padding:8px 24px 48px;max-width:1280px}
 
-h1.page{font-size:26px;font-weight:800;letter-spacing:-.03em;margin:4px 2px 4px}
-.page-sub{margin:0 2px 18px;color:var(--text-soft);font-size:14px}
-h2.sec{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-faint);margin:26px 4px 10px;display:flex;align-items:center;gap:8px}
-h2.sec .spacer{flex:1}
-h2.sec .link{font-size:13px;text-transform:none;letter-spacing:0;font-weight:600;color:var(--acc);background:none;border:0;padding:0}
+.tabbar{display:none}
 
-/* ================= CARDS ================= */
-.card{background:var(--card);border:1px solid var(--line-soft);border-radius:var(--r-lg);box-shadow:var(--shadow)}
-.card-pad{padding:16px}
-.list{display:flex;flex-direction:column;gap:10px}
+/* ================= PAGE ================= */
+.page-head{display:flex;align-items:flex-end;justify-content:space-between;gap:12px 16px;flex-wrap:wrap;margin:6px 0 18px}
+.page-head h1{font-size:24px;font-weight:700;letter-spacing:-.02em;margin:0;line-height:1.2}
+.page-head p{margin:3px 0 0;color:var(--text-2)}
+.page-head .actions{display:flex;gap:8px;flex-wrap:wrap}
+.back-link{display:inline-flex;align-items:center;gap:4px;background:none;border:0;padding:0;color:var(--text-2);font-weight:500;margin-bottom:4px}
 
-.hero{position:relative;overflow:hidden;border-radius:22px;padding:20px;color:#fff;background:linear-gradient(135deg,#4FA3D8 0%,#2D82BC 55%,#1E6399 100%);box-shadow:0 14px 34px rgba(31,114,170,.28)}
-.hero::after{content:"";position:absolute;right:-60px;top:-60px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.22),transparent 70%)}
-.hero .hi{font-size:14px;opacity:.85;margin:0}
-.hero .big{font-size:24px;font-weight:800;letter-spacing:-.02em;margin:2px 0 14px;line-height:1.2}
-.hero-actions{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;position:relative;z-index:1}
-.hero-actions button{border:0;border-radius:14px;padding:12px 6px;background:rgba(255,255,255,.16);color:#fff;font-weight:700;font-size:13.5px;display:flex;flex-direction:column;align-items:center;gap:6px;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
-.hero-actions button.main{background:#fff;color:#1E6399}
-.hero-actions button:active{transform:scale(.96)}
+.grid{display:grid;gap:16px}
+.cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);min-width:0;overflow:hidden}
+.panel-h{display:flex;align-items:center;gap:8px;padding:12px 16px;border-bottom:1px solid var(--line-2);min-height:50px}
+.panel-h h2{margin:0;font-size:14.5px;font-weight:600;flex:1;min-width:0}
+.panel-h .link{background:none;border:0;color:var(--acc);font-weight:500;font-size:13.5px;padding:0;white-space:nowrap}
+.panel-b{padding:14px 16px}
+.panel-empty{padding:22px 16px;text-align:center;color:var(--text-2)}
+.panel-empty b{display:block;color:var(--text);margin-bottom:2px}
 
-.tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:14px}
-.tile{background:var(--card);border:1px solid var(--line-soft);border-radius:var(--r-lg);padding:14px 15px;text-align:left;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:2px;min-width:0}
-button.tile:active{transform:scale(.98)}
-.tile .t-l{font-size:12.5px;color:var(--text-soft);font-weight:600;display:flex;align-items:center;gap:6px}
-.tile .t-v{font-size:24px;font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
-.tile .t-s{font-size:12px;color:var(--text-faint)}
-.tile.crit .t-v{color:var(--crit)} .tile.warn .t-v{color:var(--warn)} .tile.ok .t-v{color:var(--ok)}
-.tile .t-ic{width:26px;height:26px;border-radius:8px;display:grid;place-items:center;background:var(--acc-soft);color:var(--acc)}
-.tile.crit .t-ic{background:var(--crit-soft);color:var(--crit)} .tile.warn .t-ic{background:var(--warn-soft);color:var(--warn)} .tile.ok .t-ic{background:var(--ok-soft);color:var(--ok)}
+/* KPI */
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin-bottom:16px}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:13px 15px;text-align:left;display:flex;flex-direction:column;gap:3px;min-width:0;position:relative}
+button.kpi:hover{border-color:var(--acc-line)}
+.kpi .k-l{font-size:12.5px;color:var(--text-2);font-weight:500;display:flex;align-items:center;gap:6px}
+.kpi .k-v{font-size:24px;font-weight:700;letter-spacing:-.02em;font-variant-numeric:tabular-nums;line-height:1.15}
+.kpi .k-s{font-size:12px;color:var(--text-3)}
+.kpi .dot{width:8px;height:8px;border-radius:50%;background:var(--text-3)}
+.kpi.crit .dot{background:var(--crit)} .kpi.warn .dot{background:var(--warn)} .kpi.ok .dot{background:var(--ok)}
+.kpi.crit .k-v{color:var(--crit)} .kpi.warn .k-v{color:var(--warn)}
 
-/* guide card */
-.guide-card{display:flex;gap:14px;align-items:center;padding:14px 16px;margin-top:14px;width:100%;text-align:left;border:1px solid var(--line-soft)}
-.ring{--p:0;width:52px;height:52px;border-radius:50%;flex-shrink:0;display:grid;place-items:center;background:conic-gradient(var(--brand) calc(var(--p)*1%),var(--line-soft) 0)}
-.ring span{width:40px;height:40px;border-radius:50%;background:var(--card);display:grid;place-items:center;font-weight:800;font-size:13px}
-.guide-card .g-t{font-weight:700}
-.guide-card .g-s{font-size:13px;color:var(--text-soft)}
+/* tasks */
+.task{display:flex;align-items:center;gap:12px;padding:12px 16px;border:0;border-bottom:1px solid var(--line-2);background:none;width:100%;text-align:left;color:inherit}
+.task:last-child{border-bottom:0}
+button.task:hover{background:var(--hover)}
+.task .t-ic{width:34px;height:34px;border-radius:9px;display:grid;place-items:center;flex-shrink:0;background:var(--acc-soft);color:var(--acc)}
+.task .t-ic.crit{background:var(--crit-soft);color:var(--crit)} .task .t-ic.warn{background:var(--warn-soft);color:var(--warn)} .task .t-ic.ok{background:var(--ok-soft);color:var(--ok)} .task .t-ic.mute{background:var(--mute-soft);color:var(--text-2)}
+.task .grow{flex:1;min-width:0}
+.task .t{font-weight:600;overflow-wrap:anywhere}
+.task .s{font-size:12.5px;color:var(--text-2)}
+.task .arrow{color:var(--text-3);flex-shrink:0}
 
-/* entries (items) */
-.entry{background:var(--card);border:1px solid var(--line-soft);border-radius:var(--r-lg);position:relative;overflow:hidden;box-shadow:var(--shadow)}
-.entry::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--spine,var(--brand));opacity:.9}
-.entry.s-crit{--spine:var(--crit)} .entry.s-warn{--spine:var(--warn)} .entry.s-ok{--spine:var(--ok)} .entry.s-info{--spine:var(--info)} .entry.s-mute{--spine:var(--line)}
-.entry-main{display:flex;gap:12px;align-items:center;padding:13px 12px 13px 15px;cursor:pointer;background:none;border:0;width:100%;text-align:left;color:inherit}
-.av{width:44px;height:44px;border-radius:12px;flex-shrink:0;display:grid;place-items:center;font-weight:800;font-size:14px;letter-spacing:-.02em;background:var(--tint-bg,var(--acc-soft));color:var(--tint,var(--acc))}
-.e-info{flex:1;min-width:0}
-.e-title{font-weight:700;font-size:15.5px;line-height:1.25;margin:0;overflow-wrap:anywhere}
-.e-sub{font-size:12.5px;color:var(--text-soft);margin:2px 0 6px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.e-meta{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-.e-stock{text-align:right;flex-shrink:0;padding-left:4px}
-.e-stock .q{font-size:19px;font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums;line-height:1.1}
-.e-stock .u{font-size:11.5px;color:var(--text-faint)}
-.e-quick{display:flex;flex-direction:column;gap:6px;padding:10px 12px 10px 0;justify-content:center}
-.qbtn{width:36px;height:32px;border-radius:10px;border:1px solid var(--line);background:var(--card-hi);display:grid;place-items:center;color:var(--text-soft)}
-.qbtn:active{transform:scale(.93)}
-.qbtn.minus{color:var(--acc);border-color:color-mix(in srgb,var(--acc) 35%,var(--line))}
+/* quick actions (mobile home) */
+.qa{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-bottom:16px}
+.qa button{border:1px solid var(--line);background:var(--surface);border-radius:var(--r-lg);padding:14px 6px;display:flex;flex-direction:column;align-items:center;gap:6px;font-weight:600;color:var(--text);min-width:0}
+.qa button.primary{background:var(--acc);border-color:var(--acc);color:var(--acc-ink)}
+.qa button:active{transform:scale(.97)}
 
-.meter{height:5px;border-radius:5px;background:var(--line-soft);overflow:hidden;position:relative;width:100%;max-width:160px}
+/* rows (list items) */
+.lrow{display:flex;align-items:center;gap:12px;padding:10px 14px;border:0;border-bottom:1px solid var(--line-2);background:none;width:100%;text-align:left;color:inherit;min-height:56px}
+.lrow:last-child{border-bottom:0}
+button.lrow:hover,.lrow.click:hover{background:var(--hover)}
+.lrow .grow{flex:1;min-width:0}
+.lrow .t{font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lrow .s{font-size:12.5px;color:var(--text-2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lrow .r{text-align:right;flex-shrink:0}
+.lrow .q{font-weight:700;font-size:16px;font-variant-numeric:tabular-nums;line-height:1.1}
+.lrow .u{font-size:11.5px;color:var(--text-3)}
+.ic-sq{width:32px;height:32px;border-radius:8px;display:grid;place-items:center;flex-shrink:0;background:var(--acc-soft);color:var(--acc)}
+.ic-sq.ok{background:var(--ok-soft);color:var(--ok)} .ic-sq.crit{background:var(--crit-soft);color:var(--crit)} .ic-sq.warn{background:var(--warn-soft);color:var(--warn)} .ic-sq.mute{background:var(--mute-soft);color:var(--text-2)}
+.av{width:36px;height:36px;border-radius:9px;flex-shrink:0;display:grid;place-items:center;font-weight:700;font-size:12.5px;background:var(--tint-bg,var(--acc-soft));color:var(--tint,var(--acc))}
+
+/* compat aliases used by forms */
+.rowcard{display:flex;align-items:center;gap:12px;padding:10px 14px;border:0;border-bottom:1px solid var(--line-2);background:none;width:100%;text-align:left;color:inherit;min-width:0}
+.rowcard:last-child{border-bottom:0}
+button.rowcard:hover,label.rowcard:hover{background:var(--hover)}
+.rowcard .grow{flex:1;min-width:0}
+.rowcard .t{font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rowcard .s{font-size:12.5px;color:var(--text-2);overflow-wrap:anywhere}
+.rowcard .ic{width:32px;height:32px;border-radius:8px;display:grid;place-items:center;background:var(--acc-soft);color:var(--acc);flex-shrink:0}
+.rowcard .ic.ok{background:var(--ok-soft);color:var(--ok)} .rowcard .ic.crit{background:var(--crit-soft);color:var(--crit)} .rowcard .ic.warn{background:var(--warn-soft);color:var(--warn)} .rowcard .ic.mute{background:var(--mute-soft);color:var(--text-2)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);min-width:0;overflow:hidden}
+.card-pad{padding:14px 16px}
+.menu{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden}
+
+/* status */
+.pill{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;padding:2px 8px;border-radius:99px;white-space:nowrap;line-height:1.5}
+.pill::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor;flex-shrink:0}
+.pill.nodot::before{display:none}
+.pill.ok{background:var(--ok-soft);color:var(--ok)} .pill.warn{background:var(--warn-soft);color:var(--warn)} .pill.crit{background:var(--crit-soft);color:var(--crit)} .pill.info{background:var(--info-soft);color:var(--info)} .pill.mute{background:var(--mute-soft);color:var(--text-2)}
+.sdot{width:9px;height:9px;border-radius:50%;flex-shrink:0;background:var(--text-3)}
+.sdot.ok{background:var(--ok)} .sdot.warn{background:var(--warn)} .sdot.crit{background:var(--crit)} .sdot.info{background:var(--info)} .sdot.mute{background:var(--line)}
+.tag{display:inline-block;font-size:12px;padding:1px 7px;border-radius:6px;background:var(--mute-soft);color:var(--text-2);font-weight:500;white-space:nowrap}
+.tag.best{background:var(--ok-soft);color:var(--ok);font-weight:600}
+.meter{height:5px;border-radius:5px;background:var(--line-2);overflow:hidden;position:relative;width:100%;min-width:48px}
 .meter i{display:block;height:100%;border-radius:5px;background:var(--ok)}
 .meter.warn i{background:var(--warn)} .meter.crit i{background:var(--crit)}
-.meter b{position:absolute;top:0;bottom:0;width:2px;background:var(--text-faint)}
+.meter b{position:absolute;top:0;bottom:0;width:2px;background:var(--text-3)}
 
-.pill{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:700;padding:3px 9px;border-radius:100px;white-space:nowrap}
-.pill.ok{background:var(--ok-soft);color:var(--ok)} .pill.warn{background:var(--warn-soft);color:var(--warn)} .pill.crit{background:var(--crit-soft);color:var(--crit)} .pill.info{background:var(--info-soft);color:var(--info)} .pill.mute{background:var(--mute-soft);color:var(--text-soft)}
-.tag{display:inline-block;font-size:11.5px;padding:2px 8px;border-radius:7px;background:var(--mute-soft);color:var(--text-soft);font-weight:600}
-.tag.best{background:var(--ok-soft);color:var(--ok)}
+/* tables */
+.tablewrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table.tbl{width:100%;border-collapse:collapse;font-size:14px}
+.tbl th{position:sticky;top:0;background:var(--surface-2);text-align:left;font-weight:600;font-size:12px;color:var(--text-2);padding:9px 12px;border-bottom:1px solid var(--line);white-space:nowrap}
+.tbl td{padding:9px 12px;border-bottom:1px solid var(--line-2);vertical-align:middle}
+.tbl tr:last-child td{border-bottom:0}
+.tbl tbody tr.click{cursor:pointer}
+.tbl tbody tr.click:hover td{background:var(--hover)}
+.tbl .r{text-align:right}
+.tbl .name{font-weight:600}
+.tbl .sub{font-size:12px;color:var(--text-3)}
+.tbl .cell-item{display:flex;align-items:center;gap:10px;min-width:220px}
+.tbl .cell-item .av{width:32px;height:32px;font-size:11.5px}
 
-/* simple rows */
-.rowcard{display:flex;align-items:center;gap:12px;padding:12px 14px;border-bottom:1px solid var(--line-soft);background:none;border-left:0;border-right:0;border-top:0;width:100%;text-align:left;color:inherit}
-.rowcard:last-child{border-bottom:0}
-button.rowcard:active{background:var(--card-hi)}
-.rowcard .grow{flex:1;min-width:0}
-.rowcard .t{font-weight:650;font-size:14.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.rowcard .s{font-size:12.5px;color:var(--text-soft)}
-.rowcard .ic{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:var(--acc-soft);color:var(--acc);flex-shrink:0}
-.rowcard .ic.ok{background:var(--ok-soft);color:var(--ok)} .rowcard .ic.crit{background:var(--crit-soft);color:var(--crit)} .rowcard .ic.warn{background:var(--warn-soft);color:var(--warn)} .rowcard .ic.mute{background:var(--mute-soft);color:var(--text-soft)}
-
-/* search + chips */
-.search-bar{position:relative;margin-bottom:12px}
-.search-bar svg{position:absolute;left:15px;top:50%;transform:translateY(-50%);color:var(--text-faint);pointer-events:none}
-.search-bar input[type=search]{width:100%;padding:13px 15px 13px 44px;border:1px solid var(--line);border-radius:var(--r-md);background:var(--card);font-size:16px;box-shadow:var(--shadow)}
-.search-bar input:focus{outline:none;border-color:var(--acc)}
-.chip-row{display:flex;gap:7px;overflow-x:auto;scrollbar-width:none;padding:2px 2px 4px;margin:0 -2px 12px}
+/* toolbar, search, chips */
+.toolbar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:12px}
+.search-bar{position:relative;flex:1 1 240px;min-width:0}
+.search-bar svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--text-3);pointer-events:none}
+.gsearch input[type=search]{padding:0 12px 0 38px;height:38px;font-size:14.5px}
+.search-bar input[type=search]{width:100%;height:40px;padding:0 12px 0 38px;border:1px solid var(--line);border-radius:var(--r);background:var(--surface);font-size:16px}
+.search-bar input:focus{outline:none;border-color:var(--acc);box-shadow:0 0 0 3px var(--acc-soft)}
+.chip-row{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding:1px 0 3px;margin-bottom:12px;max-width:100%}
 .chip-row::-webkit-scrollbar{display:none}
-.chip{flex-shrink:0;padding:7px 13px;border-radius:100px;border:1px solid var(--line);background:var(--card);color:var(--text-soft);font-size:13px;font-weight:600;white-space:nowrap}
-.chip.on{background:var(--acc-soft);border-color:var(--acc);color:var(--acc)}
-.chip .c{opacity:.65;font-size:11.5px;margin-left:3px}
+.chip{flex-shrink:0;height:32px;padding:0 12px;border-radius:99px;border:1px solid var(--line);background:var(--surface);color:var(--text-2);font-size:13px;font-weight:500;white-space:nowrap;display:inline-flex;align-items:center;gap:5px}
+.chip:hover{border-color:var(--text-3)}
+.chip.on{background:var(--acc-soft);border-color:var(--acc-line);color:var(--acc);font-weight:600}
+.chip .c{opacity:.7;font-size:12px}
 .chip.crit.on{background:var(--crit-soft);border-color:var(--crit);color:var(--crit)}
 .chip.warn.on{background:var(--warn-soft);border-color:var(--warn);color:var(--warn)}
 
 /* buttons */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;padding:12px 16px;border-radius:var(--r-md);border:1px solid var(--line);background:var(--card);font-weight:700;font-size:15px;color:var(--text);text-decoration:none;white-space:nowrap}
-.btn:active{transform:scale(.98)}
-.btn.primary{background:var(--acc);border-color:var(--acc);color:var(--acc-ink);box-shadow:0 6px 18px var(--acc-glow)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:38px;padding:8px 14px;border-radius:var(--r);border:1px solid var(--line);background:var(--surface);font-weight:600;font-size:14px;color:var(--text);text-decoration:none;white-space:nowrap;max-width:100%}
+.btn:hover{border-color:var(--text-3)}
+.btn:active{transform:translateY(1px)}
+.btn.primary{background:var(--acc);border-color:var(--acc);color:var(--acc-ink)}
+.btn.primary:hover{background:var(--acc-hover);border-color:var(--acc-hover)}
 .btn.soft{background:var(--acc-soft);border-color:transparent;color:var(--acc)}
 .btn.danger{color:var(--crit)}
-.btn.ghost{background:none;border-color:transparent;color:var(--text-soft)}
-.btn.sm{padding:7px 11px;font-size:13px;border-radius:10px}
-.btn.block{width:100%}
-.btn:disabled{opacity:.5}
-.btns{display:flex;gap:9px;margin-top:18px}
-.btns .btn{flex:1}
+.btn.ghost{background:none;border-color:transparent;color:var(--text-2)}
+.btn.ghost:hover{background:var(--hover)}
+.btn.sm{min-height:32px;padding:5px 10px;font-size:13px}
+.btn.block{width:100%;white-space:normal;text-align:center}
+.tbl td.acts{white-space:nowrap}
+.tbl td.acts .btn{min-width:34px;padding:0 8px}
+.btn:disabled{opacity:.5;cursor:default}
+.btns{display:flex;gap:8px;margin-top:18px;flex-wrap:wrap}
+.btns .btn{flex:1 1 140px}
 
-/* empty */
-.empty{padding:26px 18px;text-align:center;color:var(--text-soft)}
-.empty .e-ic{width:52px;height:52px;border-radius:16px;margin:0 auto 10px;display:grid;place-items:center;background:var(--acc-soft);color:var(--acc)}
-.empty b{display:block;color:var(--text);font-size:15.5px;margin-bottom:3px}
-
-/* ================= NAV ================= */
-.nav{position:fixed;left:0;right:0;bottom:0;z-index:15;height:calc(var(--nav-h) + env(safe-area-inset-bottom));padding-bottom:env(safe-area-inset-bottom);background:var(--nav-bg);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid var(--line-soft);display:flex;justify-content:center}
-.nav-inner{width:100%;max-width:720px;height:var(--nav-h);display:flex;align-items:center;justify-content:space-around;padding:0 8px}
-.nav-btn{background:none;border:0;display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--text-faint);font-size:10.5px;font-weight:600;padding:6px 4px;flex:1;min-width:0;position:relative}
-.nav-btn.on{color:var(--acc)}
-.nav-btn .badge{position:absolute;top:1px;left:calc(50% + 6px);background:var(--crit);color:#fff;font-size:10px;font-weight:800;border-radius:99px;padding:0 5px;line-height:16px;min-width:16px;text-align:center}
-.nav-add{width:54px;height:54px;border-radius:50%;border:0;background:var(--acc);color:var(--acc-ink);display:grid;place-items:center;box-shadow:0 8px 22px var(--acc-glow);flex-shrink:0;margin:0 6px;transform:translateY(-8px)}
-.nav-add:active{transform:translateY(-8px) scale(.92)}
-
-/* ================= SHEETS ================= */
-.overlay{position:fixed;inset:0;z-index:40;background:rgba(10,18,26,.5);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);display:flex;align-items:flex-end;justify-content:center;animation:fade .22s ease}
+/* ================= PANELS (obrazci, podrobnosti) ================= */
+.overlay{position:fixed;inset:0;z-index:40;background:var(--scrim);display:flex;justify-content:flex-end;animation:fade .18s ease}
 @keyframes fade{from{opacity:0}}
-.sheet{background:var(--bg-raised);width:100%;max-width:640px;border-radius:24px 24px 0 0;padding:6px 18px calc(20px + env(safe-area-inset-bottom));max-height:92vh;max-height:92dvh;overflow:hidden auto;overscroll-behavior:contain;border-top:1px solid var(--line);animation:rise .38s cubic-bezier(.16,1,.3,1);box-shadow:var(--shadow-lg)}
-@keyframes rise{from{transform:translateY(100%)}}
-.handle{width:40px;height:5px;background:var(--line);border-radius:100px;margin:8px auto 14px}
-.sheet h2{font-size:21px;font-weight:800;letter-spacing:-.02em;margin:0 0 4px}
-.sheet .sh-sub{color:var(--text-soft);font-size:13.5px;margin:0 0 16px}
-.sheet-head{display:flex;gap:12px;align-items:flex-start;margin-bottom:14px}
+.sheet{background:var(--surface);width:min(560px,100%);height:100%;overflow-y:auto;overscroll-behavior:contain;padding:0 20px calc(24px + env(safe-area-inset-bottom));box-shadow:var(--shadow-lg);animation:slide .22s cubic-bezier(.2,.8,.2,1)}
+@keyframes slide{from{transform:translateX(30px);opacity:.5}}
+.overlay.center{justify-content:center;align-items:center;padding:20px}
+.overlay.center .sheet{height:auto;max-height:calc(100vh - 40px);max-height:calc(100dvh - 40px);border-radius:var(--r-lg);width:min(520px,100%);animation:pop .18s ease}
+@keyframes pop{from{transform:scale(.97);opacity:.5}}
+.handle{display:none}
+.sheet-head{position:sticky;top:0;z-index:3;background:var(--surface);display:flex;gap:12px;align-items:flex-start;padding:16px 0 12px;margin-bottom:12px;border-bottom:1px solid var(--line-2)}
 .sheet-head .grow{flex:1;min-width:0}
-.x-btn{width:34px;height:34px;border-radius:50%;border:0;background:var(--mute-soft);color:var(--text-soft);display:grid;place-items:center;flex-shrink:0}
-@media (min-width:760px){
-  .overlay{align-items:center;padding:24px}
-  .sheet{border-radius:24px;max-height:88vh;border:1px solid var(--line)}
-  .handle{display:none}
-  .sheet{padding-top:20px}
-}
+.sheet h2{font-size:18px;font-weight:700;letter-spacing:-.01em;margin:0;overflow-wrap:anywhere}
+.sheet .sh-sub{color:var(--text-2);font-size:13px;margin:2px 0 0;overflow-wrap:anywhere}
+.x-btn{width:34px;height:34px;border-radius:8px;border:0;background:var(--mute-soft);color:var(--text-2);display:grid;place-items:center;flex-shrink:0}
+.x-btn:hover{color:var(--text)}
 
 /* forms */
 .field{display:flex;flex-direction:column;gap:5px;min-width:0}
-.field label{font-size:13px;font-weight:650;color:var(--text-soft)}
-.field .help{font-size:12px;color:var(--text-faint)}
-input[type=text],input[type=number],input[type=date],input[type=email],input[type=url],input[type=search],select,textarea{width:100%;min-width:0;padding:12px 13px;border:1px solid var(--line);border-radius:12px;background:var(--card);font-size:16px}
+.field label{font-size:13px;font-weight:600;color:var(--text-2)}
+.field .help{font-size:12px;color:var(--text-3)}
+input[type=text],input[type=number],input[type=date],input[type=email],input[type=url],input[type=search],input[type=password],select,textarea{width:100%;min-width:0;height:40px;padding:0 11px;border:1px solid var(--line);border-radius:var(--r-sm);background:var(--surface);font-size:16px}
+textarea{height:auto;padding:10px 11px;resize:vertical;min-height:96px;line-height:1.45}
+input[type=date]{min-height:40px}
 input:focus,select:focus,textarea:focus{outline:none;border-color:var(--acc);box-shadow:0 0 0 3px var(--acc-soft)}
-textarea{resize:vertical;min-height:100px}
 .fgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
 .fgrid .full{grid-column:1/-1}
-.more-toggle{display:flex;align-items:center;gap:8px;background:none;border:0;padding:12px 0 4px;color:var(--acc);font-weight:700;font-size:14px}
+.more-toggle{display:flex;align-items:center;gap:6px;background:none;border:0;padding:12px 0 4px;color:var(--acc);font-weight:600;font-size:14px}
 .more-toggle svg{transition:transform .2s}
 .more-toggle.open svg{transform:rotate(180deg)}
-.seg{display:flex;background:var(--mute-soft);border-radius:12px;padding:3px;gap:3px}
-.seg button{flex:1;border:0;background:none;padding:9px 8px;border-radius:9px;font-weight:700;font-size:13.5px;color:var(--text-soft)}
-.seg button[aria-pressed="true"]{background:var(--card);color:var(--text);box-shadow:var(--shadow)}
-
+.seg{display:flex;background:var(--mute-soft);border-radius:var(--r);padding:3px;gap:3px;max-width:100%}
+.seg button{flex:1;border:0;background:none;padding:7px 8px;border-radius:7px;font-weight:600;font-size:13px;color:var(--text-2);white-space:nowrap;min-width:0}
+.seg button[aria-pressed="true"]{background:var(--surface);color:var(--text);box-shadow:var(--shadow-sm)}
 .stepper{display:flex;align-items:center;gap:10px;justify-content:center;margin:8px 0}
-.stepper button{width:56px;height:56px;border-radius:18px;border:1px solid var(--line);background:var(--card);font-size:26px;font-weight:600;color:var(--acc);display:grid;place-items:center}
-.stepper button:active{transform:scale(.94)}
-.stepper input{width:120px;text-align:center;font-size:30px;font-weight:800;padding:8px;border-radius:16px;font-variant-numeric:tabular-nums}
-.quickq{display:flex;gap:8px;justify-content:center;margin-bottom:6px}
-.quickq button{border:1px solid var(--line);background:var(--card);border-radius:100px;padding:6px 14px;font-weight:700;font-size:13px;color:var(--text-soft)}
-
-.picked{display:flex;gap:12px;align-items:center;padding:12px;border-radius:16px;background:var(--card-hi);border:1px solid var(--line-soft);margin-bottom:10px}
-.picked .grow{flex:1;min-width:0}
-.pick-list{display:flex;flex-direction:column;max-height:46vh;overflow:auto;border:1px solid var(--line-soft);border-radius:16px;background:var(--card)}
-.pick-item{display:flex;gap:11px;align-items:center;padding:10px 12px;border:0;border-bottom:1px solid var(--line-soft);background:none;text-align:left;width:100%;color:inherit}
+.stepper button{width:54px;height:54px;border-radius:12px;border:1px solid var(--line);background:var(--surface);font-size:26px;font-weight:500;color:var(--acc);display:grid;place-items:center;flex-shrink:0}
+.stepper input{width:110px;height:54px;text-align:center;font-size:26px;font-weight:700;padding:0 6px;font-variant-numeric:tabular-nums}
+.quickq{display:flex;gap:8px;justify-content:center;margin-bottom:6px;flex-wrap:wrap}
+.quickq button{border:1px solid var(--line);background:var(--surface);border-radius:99px;min-width:48px;height:32px;padding:0 12px;font-weight:600;font-size:13px;color:var(--text-2)}
+.picked{display:flex;gap:12px;align-items:center;padding:10px 12px;border-radius:var(--r);background:var(--surface-2);border:1px solid var(--line-2);margin-bottom:12px;min-width:0}
+.picked .grow{flex:1;min-width:0;overflow-wrap:anywhere}
+.pick-list{display:flex;flex-direction:column;max-height:52vh;overflow:auto;border:1px solid var(--line);border-radius:var(--r);background:var(--surface)}
+.pick-item{display:flex;gap:10px;align-items:center;padding:9px 12px;border:0;border-bottom:1px solid var(--line-2);background:none;text-align:left;width:100%;color:inherit;min-height:52px}
 .pick-item:last-child{border-bottom:0}
-.pick-item:active{background:var(--card-hi)}
-.pick-item .av{width:36px;height:36px;border-radius:10px;font-size:12px}
+.pick-item:hover{background:var(--hover)}
+.pick-item .av{width:32px;height:32px;font-size:11.5px}
 .pick-item .grow{flex:1;min-width:0}
-.pick-item .t{font-weight:650;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.pick-item .s{font-size:12px;color:var(--text-soft)}
-.pick-label{font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--text-faint);padding:10px 12px 4px}
-
-.statgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
-.statgrid div{background:var(--card-hi);border-radius:12px;padding:10px 11px}
-.statgrid dt{font-size:11.5px;color:var(--text-faint);font-weight:600}
-.statgrid dd{margin:2px 0 0;font-weight:800;font-size:15.5px;font-variant-numeric:tabular-nums}
-.sec-t{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--text-faint);margin:18px 0 8px}
-.lotrow{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--line-soft)}
+.pick-item .t{font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pick-item .s{font-size:12px;color:var(--text-2)}
+.pick-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--text-3);padding:9px 12px 3px;background:var(--surface-2)}
+.statgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:0}
+.statgrid div{background:var(--surface-2);border:1px solid var(--line-2);border-radius:var(--r-sm);padding:9px 10px;min-width:0}
+.statgrid dt{font-size:11.5px;color:var(--text-3);font-weight:500}
+.statgrid dd{margin:2px 0 0;font-weight:700;font-size:15px;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.sec-t{font-size:11.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--text-3);margin:20px 0 8px}
+.lotrow{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--line-2);min-width:0}
 .lotrow:last-child{border-bottom:0}
-.mailbox{white-space:pre-wrap;background:var(--card-hi);border:1px solid var(--line-soft);border-radius:14px;padding:14px;font-size:13.5px;margin:0;user-select:text;font-family:var(--font)}
-.confirm{background:var(--crit-soft);border-radius:12px;padding:12px;display:flex;gap:8px;align-items:center;flex-wrap:wrap;color:var(--text);font-size:14px;margin-top:10px}
-.banner{display:flex;gap:10px;align-items:center;padding:10px 12px;border-radius:14px;background:var(--warn-soft);color:var(--text);margin-bottom:14px;font-size:13.5px}
-.banner>span:not(.spacer){flex:1;min-width:0}.banner .spacer{display:none}
+.mailbox{white-space:pre-wrap;overflow-wrap:anywhere;background:var(--surface-2);border:1px solid var(--line-2);border-radius:var(--r);padding:12px;font-size:13.5px;margin:0;user-select:text;font-family:var(--font)}
+.confirm{background:var(--crit-soft);border-radius:var(--r);padding:10px 12px;display:flex;gap:8px;align-items:center;flex-wrap:wrap;color:var(--text);font-size:14px;margin-top:10px}
+.confirm span{flex:1 1 200px;min-width:0}
+.banner{display:flex;gap:10px;align-items:center;padding:10px 14px;border-radius:var(--r);background:var(--warn-soft);color:var(--text);margin-bottom:14px;font-size:13.5px;border:1px solid color-mix(in srgb,var(--warn) 30%,transparent)}
+.banner>span:not(.spacer){flex:1;min-width:0}
+.banner .spacer{display:none}
 .banner b{color:var(--warn)}
-
-/* order lines */
-.oline{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 10px;padding:12px 0;border-bottom:1px solid var(--line-soft);align-items:center}
+.oline{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 10px;padding:11px 0;border-bottom:1px solid var(--line-2);align-items:center}
 .oline:last-child{border-bottom:0}
-.oline .inputs{display:flex;gap:6px;align-items:center;grid-column:1/-1}
-.oline .inputs input{padding:9px 10px;font-size:15px}
-.oline .inputs label{font-size:11.5px;color:var(--text-faint);font-weight:600}
+.oline .inputs{display:flex;gap:6px;align-items:center;grid-column:1/-1;flex-wrap:wrap}
+.oline .inputs input{height:36px;font-size:15px}
+.oline .inputs2{grid-column:1/-1;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.oline .inputs2 .field{margin:0}
+.oline .inputs2 input{height:38px}
+.oline .inputs label{font-size:11.5px;color:var(--text-3);font-weight:600}
+.empty{padding:24px 16px;text-align:center;color:var(--text-2)}
+.empty .e-ic{width:44px;height:44px;border-radius:12px;margin:0 auto 10px;display:grid;place-items:center;background:var(--acc-soft);color:var(--acc)}
+.empty b{display:block;color:var(--text);font-size:15px;margin-bottom:3px}
 
 /* charts */
-.chart{position:relative;padding:10px 0 0 40px}
+.chart{position:relative;padding:8px 0 0 44px}
 .chart .plot{position:relative;height:170px;border-bottom:1px solid var(--line)}
-.chart .gl{position:absolute;left:0;right:0;border-top:1px dashed var(--line-soft)}
-.chart .gl span{position:absolute;right:calc(100% + 7px);top:-8px;font-size:10.5px;color:var(--text-faint);white-space:nowrap;font-variant-numeric:tabular-nums}
+.chart .gl{position:absolute;left:0;right:0;border-top:1px dashed var(--line-2)}
+.chart .gl span{position:absolute;right:calc(100% + 7px);top:-8px;font-size:11px;color:var(--text-3);white-space:nowrap;font-variant-numeric:tabular-nums}
 .chart .bars{position:absolute;inset:0;display:flex;align-items:flex-end;gap:3px}
-.chart .col{flex:1 1 0;min-width:0;height:100%;display:flex;align-items:flex-end;justify-content:center;border:0;background:none;padding:0 3px}
-.chart .col i{display:block;flex:1 1 auto;max-width:34px;background:linear-gradient(180deg,var(--brand),color-mix(in srgb,var(--brand) 70%,#1E6399));border-radius:6px 6px 2px 2px;min-height:2px}
-.chart .col.cur i{background:var(--acc-soft);outline:1.5px dashed var(--brand);outline-offset:-1.5px}
+.chart .col{flex:1 1 0;min-width:0;height:100%;display:flex;align-items:flex-end;justify-content:center;border:0;background:none;padding:0 2px}
+.chart .col i{display:block;flex:1 1 auto;max-width:32px;background:var(--brand);border-radius:4px 4px 0 0;min-height:2px}
+.chart .col:hover i{background:var(--acc)}
+.chart .col.cur i{background:repeating-linear-gradient(135deg,var(--brand) 0 4px,color-mix(in srgb,var(--brand) 55%,transparent) 4px 8px)}
 .chart .xl{display:flex;gap:3px;margin-top:6px}
-.chart .xl span{flex:1;text-align:center;font-size:11px;color:var(--text-faint);overflow:hidden;white-space:nowrap}
-.hbars{display:flex;flex-direction:column;gap:11px}
-.hb .top-l{display:flex;justify-content:space-between;gap:8px;font-size:13.5px;margin-bottom:5px}
-.hb .top-l span:first-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:600}
-.hb .top-l span:last-child{font-variant-numeric:tabular-nums;color:var(--text-soft);font-weight:600}
-.hb .t{height:8px;background:var(--line-soft);border-radius:8px;overflow:hidden}
+.chart .xl span{flex:1;min-width:0;text-align:center;font-size:11px;color:var(--text-3);overflow:hidden;white-space:nowrap}
+.hbars{display:flex;flex-direction:column;gap:10px}
+.hb .top-l{display:flex;justify-content:space-between;gap:8px;font-size:13.5px;margin-bottom:4px;min-width:0}
+.hb .top-l span:first-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:500;min-width:0}
+.hb .top-l span:last-child{font-variant-numeric:tabular-nums;color:var(--text-2);font-weight:600;flex-shrink:0}
+.hb .t{height:8px;background:var(--line-2);border-radius:8px;overflow:hidden}
 .hb .t i{display:block;height:100%;background:var(--brand);border-radius:8px}
-.spark{display:flex;align-items:flex-end;gap:4px;height:46px}
-.spark i{flex:1;background:var(--acc-soft);border-radius:4px 4px 2px 2px;min-height:2px}
+.spark{display:flex;align-items:flex-end;gap:4px;height:44px}
+.spark i{flex:1;background:var(--acc-soft);border-radius:3px 3px 0 0;min-height:2px}
 .spark i:last-child{background:var(--brand)}
-#tip{position:fixed;pointer-events:none;background:var(--text);color:var(--bg);padding:6px 9px;border-radius:8px;font-size:12px;font-weight:600;z-index:70;white-space:nowrap}
+#tip{position:fixed;pointer-events:none;background:var(--text);color:var(--bg);padding:5px 9px;border-radius:6px;font-size:12px;font-weight:600;z-index:90;white-space:nowrap}
+#priceChart svg{display:block;max-width:100%}
 
 /* guide */
-.lesson{background:var(--card);border:1px solid var(--line-soft);border-radius:var(--r-lg);box-shadow:var(--shadow);overflow:hidden}
-.lesson-head{display:flex;gap:12px;align-items:center;padding:14px 14px;width:100%;background:none;border:0;text-align:left;color:inherit}
-.lesson .n{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;font-weight:800;font-size:13.5px;flex-shrink:0;border:2px solid var(--line);color:var(--text-soft)}
+.lesson{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden}
+.lesson-head{display:flex;gap:12px;align-items:center;padding:12px 14px;width:100%;background:none;border:0;text-align:left;color:inherit}
+.lesson .n{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:13px;flex-shrink:0;border:2px solid var(--line);color:var(--text-2)}
 .lesson.done .n{background:var(--ok);border-color:var(--ok);color:#fff}
-.lesson.next .n{border-color:var(--acc);color:var(--acc);box-shadow:0 0 0 4px var(--acc-soft)}
-.lesson .lt{font-weight:700;font-size:15px}
-.lesson.done .lt{color:var(--text-soft)}
-.lesson .ls{font-size:12.5px;color:var(--text-faint)}
-.lesson-body{padding:0 16px 16px 58px;display:none}
+.lesson.next{border-color:var(--acc-line)}
+.lesson.next .n{border-color:var(--acc);color:var(--acc)}
+.lesson .lt{font-weight:600}
+.lesson.done .lt{color:var(--text-2)}
+.lesson .ls{font-size:12.5px;color:var(--text-3)}
+.lesson-body{padding:0 16px 14px 56px;display:none}
 .lesson.open .lesson-body{display:block}
-.lesson-body p{margin:0 0 10px;color:var(--text-soft);font-size:14px}
-.lesson-body ol{margin:0 0 12px;padding-left:18px;font-size:14px}
+.lesson-body p{margin:0 0 8px;color:var(--text-2)}
+.lesson-body ol{margin:0 0 12px;padding-left:18px}
 .lesson-body li{margin:3px 0}
-.chev{transition:transform .2s;color:var(--text-faint)}
+.chev{transition:transform .2s;color:var(--text-3);display:flex}
 .lesson.open .chev{transform:rotate(180deg)}
+.progress{height:8px;border-radius:8px;background:var(--line-2);overflow:hidden}
+.progress i{display:block;height:100%;background:var(--ok);border-radius:8px}
+.list{display:flex;flex-direction:column;gap:8px}
 
 /* spotlight */
-.spot-veil{position:fixed;inset:0;z-index:60}
-.spot{position:fixed;border-radius:16px;box-shadow:0 0 0 9999px rgba(8,16,24,.62),0 0 0 3px var(--brand);transition:all .3s cubic-bezier(.2,.8,.2,1);pointer-events:none}
-.spot-tip{position:fixed;z-index:61;max-width:300px;background:var(--bg-raised);color:var(--text);border-radius:16px;padding:14px 16px;box-shadow:var(--shadow-lg);border:1px solid var(--line)}
+.spot-veil{position:fixed;inset:0;z-index:85}
+.spot{position:fixed;border-radius:10px;box-shadow:0 0 0 9999px rgba(8,16,24,.6),0 0 0 3px var(--brand);transition:all .3s cubic-bezier(.2,.8,.2,1);pointer-events:none}
+.spot-tip{position:fixed;z-index:86;background:var(--surface);color:var(--text);border-radius:var(--r-lg);padding:14px 16px;box-shadow:var(--shadow-lg);border:1px solid var(--line)}
 .spot-tip b{display:block;margin-bottom:3px}
-.spot-tip p{margin:0 0 10px;font-size:14px;color:var(--text-soft)}
+.spot-tip p{margin:0 0 10px;font-size:14px;color:var(--text-2)}
 
-/* toast */
-#toast{position:fixed;left:50%;bottom:calc(var(--nav-h) + 22px + env(safe-area-inset-bottom));transform:translateX(-50%);background:var(--text);color:var(--bg);padding:11px 18px;border-radius:14px;z-index:80;font-weight:650;font-size:14px;box-shadow:var(--shadow-lg);max-width:calc(100% - 32px);text-align:center}
-
-/* settings list */
-.menu{background:var(--card);border:1px solid var(--line-soft);border-radius:var(--r-lg);box-shadow:var(--shadow);overflow:hidden}
+#toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--text);color:var(--bg);padding:10px 16px;border-radius:var(--r);z-index:95;font-weight:600;font-size:14px;box-shadow:var(--shadow-lg);max-width:calc(100% - 32px);text-align:center}
 
 /* login */
-.login{min-height:100vh;min-height:100dvh;display:grid;place-items:center;padding:24px 16px}
-.login .card{width:min(400px,100%);padding:28px 22px;display:flex;flex-direction:column;gap:14px}
-.login .logo-mark{width:56px;height:56px;border-radius:16px}
-.login h1{margin:0;font-size:28px;font-weight:800;letter-spacing:-.03em}
-.login p{margin:0;color:var(--text-soft)}
+.login{min-height:100vh;min-height:100dvh;display:grid;place-items:center;padding:24px 16px;background:var(--bg)}
+.login .card{width:min(400px,100%);padding:28px 24px;display:flex;flex-direction:column;gap:14px}
+.login .brand{padding:0}
+.login h1{margin:0;font-size:22px;font-weight:700}
+.login p{margin:0;color:var(--text-2)}
 .login .err{color:var(--crit);font-size:13.5px;min-height:1em}
-.loading{padding:80px 0;text-align:center;color:var(--text-soft)}
+.loading{padding:80px 0;text-align:center;color:var(--text-2)}
 
-/* desktop */
-@media (min-width:980px){
-  .wrap{max-width:1040px;padding-inline:28px}
-  .two-col{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0 20px;align-items:start}
-  .list.grid-2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
-  .tiles{grid-template-columns:repeat(4,minmax(0,1fr))}
-  .hero{padding:26px}
-  .hero-actions{max-width:520px}
+/* ================= RESPONSIVE ================= */
+@media (max-width:1440px){ .tbl .c-opt{display:none} }
+@media (max-width:1300px){ .tbl .c-opt2{display:none} }
+@media (max-width:1180px){
+  .kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
-@media (max-width:380px){ .fgrid{grid-template-columns:minmax(0,1fr)} .statgrid{grid-template-columns:repeat(2,minmax(0,1fr))} }
+@media (max-width:1023px){
+  :root{--side-w:72px}
+  .side{padding:14px 8px}
+  .brand{justify-content:center;padding:2px 0 14px}
+  .brand .txt,.nav-label,.nav-item .lbl,.side-foot .who,.side-actions .lbl{display:none}
+  .side-actions{grid-template-columns:1fr;padding:0 0 12px}
+  .side-actions .btn{padding:0;min-height:44px}
+  .nav-item{justify-content:center;padding:10px 0;position:relative}
+  .nav-item .cnt{position:absolute;top:2px;right:6px;margin:0;padding:0 5px;min-width:16px;font-size:10.5px}
+  .nav-item .cnt:not(.crit){display:none}
+  .side-foot{justify-content:center;padding:10px 0 0}
+  .cols-2{grid-template-columns:minmax(0,1fr)}
+}
+@media (max-width:760px){
+  body{font-size:15px}
+  .side{display:none}
+  .main{margin-left:0}
+  .topbar{padding:0 14px;padding-top:env(safe-area-inset-top);height:calc(var(--top-h) + env(safe-area-inset-top));background:var(--surface);border-bottom-color:var(--line)}
+  .top-title{display:block;flex:1}
+  .gsearch{display:none}
+  .content{padding:14px 14px calc(var(--tab-h) + 28px + env(safe-area-inset-bottom))}
+  .page-head{margin-top:0}
+  .page-head h1{font-size:21px}
+  .page-head:not(.keep-h1) h1{display:none}
+  .page-head:not(.keep-h1) p{margin-top:0}
+  .page-head:not(.keep-h1){align-items:center}
+  .page-head.hide-m{display:none}
+  .tabbar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:30;background:var(--surface);border-top:1px solid var(--line);padding:0 4px env(safe-area-inset-bottom);height:calc(var(--tab-h) + env(safe-area-inset-bottom))}
+  .tab{flex:1 1 0;min-width:0;border:0;background:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:11px;font-weight:500;color:var(--text-3);position:relative}
+  .tab.on{color:var(--acc);font-weight:600}
+  .tab .badge{position:absolute;top:6px;left:calc(50% + 6px);background:var(--crit);color:#fff;font-size:10px;font-weight:700;border-radius:99px;padding:0 5px;line-height:16px;min-width:16px;text-align:center}
+  .tab.main-act .pillbtn{width:52px;height:34px;border-radius:10px;background:var(--acc);color:var(--acc-ink);display:grid;place-items:center}
+  .tab.main-act{color:var(--acc);font-weight:600}
+  .kpis{gap:8px}
+  .kpi{padding:11px 12px}
+  .kpi .k-v{font-size:21px}
+  .grid{gap:12px}
+  .panel-h{padding:10px 14px}
+  .panel-b{padding:12px 14px}
+  .overlay{background:var(--surface)}
+  .overlay,.overlay.center{padding:0;align-items:stretch;justify-content:stretch}
+  .sheet,.overlay.center .sheet{width:100%;height:100%;max-height:none;border-radius:0;box-shadow:none;padding:0 16px calc(24px + env(safe-area-inset-bottom));animation:up .22s cubic-bezier(.2,.8,.2,1)}
+  @keyframes up{from{transform:translateY(24px);opacity:.4}}
+  .sheet-head{padding-top:calc(12px + env(safe-area-inset-top))}
+  #toast{bottom:calc(var(--tab-h) + 16px + env(safe-area-inset-bottom))}
+  .hide-m{display:none!important}
+}
+@media (min-width:761px){ .only-m{display:none!important} }
+@media (max-width:420px){
+  .fgrid{grid-template-columns:minmax(0,1fr)}
+  .statgrid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .qa button{font-size:13px;padding:12px 4px}
+}
+@media (max-width:340px){
+  .oline .inputs2{grid-template-columns:minmax(0,1fr)}
+  .kpi{padding:10px}
+  .kpi .k-v{font-size:19px}
+  .stepper button{width:46px;height:46px}
+  .stepper input{width:90px}
+}
 @media (prefers-reduced-motion:reduce){ *{animation:none!important;transition:none!important} }
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.1/dist/umd/supabase.js"></script>
 </head>
 <body>
 <div id="login" class="login" hidden></div>
-<div id="app" hidden>
-  <div class="wrap">
-    <header class="top">
-      <button class="logo-btn" data-go="home" aria-label="Domov">
-        <svg class="logo-mark" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="16" fill="#3A93CE"/><path d="M0 16A16 16 0 0116 0h48v34C44 30 20 36 0 50z" fill="#62AFE0" opacity=".55"/><path d="M20.5 17c-4.6 0-7.5 3.7-7.5 8.3 0 5.4 2.8 8.3 3.7 12.8.9 4.8 1.9 11.9 5.2 11.9 2.9 0 3.1-7.3 4-10 .5-1.7 1.7-2.2 3.6-2.2h5c1.9 0 3.1.5 3.6 2.2.9 2.7 1.1 10 4 10 3.3 0 4.3-7.1 5.2-11.9.9-4.5 3.7-7.4 3.7-12.8 0-4.6-2.9-8.3-7.5-8.3-3.7 0-5.5 1.8-9.5 1.8s-5.8-1.8-9.5-1.8z" fill="#fff"/><path d="M27 31h10M32 26v10" stroke="#2D82BC" stroke-width="3.2" stroke-linecap="round"/></svg>
-        <span class="brand-name">Subri<b>loga</b></span>
-      </button>
-      <span class="spacer"></span>
-      <button class="icon-btn" data-act="scan" aria-label="Skeniraj"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 7V5a2 2 0 012-2h2M17 3h2a2 2 0 012 2v2M21 17v2a2 2 0 01-2 2h-2M7 21H5a2 2 0 01-2-2v-2"/><path d="M7 8v8M10 8v8M13.5 8v8M17 8v8"/></svg></button>
-      <button class="icon-btn" data-act="search" aria-label="Iskanje"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg></button>
-      <button class="avatar" id="avatarBtn" data-go="more" aria-label="Več"></button>
+<div id="app" class="shell" hidden>
+  <aside class="side" aria-label="Navigacija">
+    <button class="brand" data-go="home" style="background:none;border:0;color:inherit;text-align:left">
+      <svg class="mark" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="14" fill="#3A93CE"/><path d="M0 14A14 14 0 0114 0h50v34C44 30 20 36 0 50z" fill="#62AFE0" opacity=".55"/><path d="M20.5 17c-4.6 0-7.5 3.7-7.5 8.3 0 5.4 2.8 8.3 3.7 12.8.9 4.8 1.9 11.9 5.2 11.9 2.9 0 3.1-7.3 4-10 .5-1.7 1.7-2.2 3.6-2.2h5c1.9 0 3.1.5 3.6 2.2.9 2.7 1.1 10 4 10 3.3 0 4.3-7.1 5.2-11.9.9-4.5 3.7-7.4 3.7-12.8 0-4.6-2.9-8.3-7.5-8.3-3.7 0-5.5 1.8-9.5 1.8s-5.8-1.8-9.5-1.8z" fill="#fff"/><path d="M27 31h10M32 26v10" stroke="#2D82BC" stroke-width="3.2" stroke-linecap="round"/></svg>
+      <span class="txt"><b>Subri<span>loga</span></b><small>ZALOGA MATERIALA</small></span>
+    </button>
+    <div class="side-actions" id="sideActions"></div>
+    <nav class="nav" id="nav"></nav>
+    <div class="side-foot" id="sideFoot"></div>
+  </aside>
+  <div class="main">
+    <header class="topbar" id="topbar">
+      <div class="top-title" id="topTitle"></div>
+      <div class="gsearch" id="gsearch"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input type="search" id="gq" placeholder="Išči material, šifro, lokacijo …  ( / )" autocomplete="off" aria-label="Iskanje materiala"><div class="gs-results" id="gsRes" hidden></div></div>
+      <span class="spacer hide-m"></span>
+      <button class="icon-btn only-m" data-act="search" aria-label="Iskanje"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg></button>
+      <button class="icon-btn" data-act="scan" data-tour="scan" aria-label="Skeniraj kodo"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 7V5a2 2 0 012-2h2M17 3h2a2 2 0 012 2v2M21 17v2a2 2 0 01-2 2h-2M7 21H5a2 2 0 01-2-2v-2"/><path d="M7 8v8M10 8v8M13.5 8v8M17 8v8"/></svg></button>
+      <button class="avatar" id="avatarBtn" data-go="more" aria-label="Račun in nastavitve"></button>
     </header>
-    <main id="main"></main>
+    <main id="main" class="content"></main>
   </div>
-  <nav class="nav" aria-label="Navigacija"><div class="nav-inner" id="nav"></div></nav>
+  <nav class="tabbar" id="tabbar" aria-label="Zavihki"></nav>
 </div>
 <div id="overlayRoot"></div>
 <div id="overlayRoot2"></div>
-<div id="toast" hidden></div>
+<div id="toast" hidden role="status"></div>
 <div id="tip" hidden></div>
 <script>
 "use strict";
@@ -634,11 +742,11 @@ const GUIDE = [
     how: ["Več → Dobavitelji → Dodaj dobavitelja.", "Vpiši ime, e-pošto za naročila in rok dostave v dneh.", "Ponovi za vsakega dobavitelja, s katerim delate."],
     done: () => S().suppliers.length > 0, go: {view: "suppliers", sel: "[data-tour=add-supplier]", tip: "Klikni tukaj in dodaj prvega dobavitelja."}},
   {id: "item", t: "Dodaj prvi material", s: "1 minuta", why: "Vsak material ima svojo enoto, minimum in zalogo po serijah (LOT + rok uporabe).",
-    how: ["Tapni modri gumb + spodaj na sredini → Nov material.", "Vpiši naziv, enoto (npr. karpula) in trenutno količino.", "LOT in rok uporabe prepiši s škatle."],
-    done: () => S().items.length > 0, go: {view: "home", sel: "[data-tour=fab]", tip: "Ta gumb odpre hitra dejanja – izberi »Nov material«."}},
+    how: ["Zaloga → Nov material.", "Vpiši naziv, enoto (npr. karpula) in trenutno količino.", "LOT in rok uporabe prepiši s škatle."],
+    done: () => S().items.length > 0, go: {view: "stock", sel: "[data-tour=add-item]", tip: "Tukaj dodaš nov material."}},
   {id: "scan", t: "Poveži črtne kode", s: "5 sekund na izdelek", why: "Ko je koda škatle povezana z materialom, prevzem in poraba potekata s skeniranjem – LOT in rok se izpolnita sama.",
-    how: ["Tapni ikono za skeniranje zgoraj desno.", "Usmeri kamero v kodo DataMatrix na škatli (ali uporabi ročni čitalnik).", "Neznano kodo poveži z obstoječim materialom ali ustvari nov material."],
-    done: () => S().items.some(i => i.gtin), go: {view: "home", sel: "[data-act=scan]", tip: "Tukaj skeniraš škatlo."}},
+    how: ["Tapni ikono za skeniranje zgoraj desno (črtna koda).", "Usmeri kamero v kodo DataMatrix na škatli (ali uporabi ročni čitalnik).", "Neznano kodo poveži z obstoječim materialom ali ustvari nov material."],
+    done: () => S().items.some(i => i.gtin), go: {view: "home", sel: "[data-tour=scan]", tip: "Tukaj skeniraš škatlo."}},
   {id: "bulk", t: "Popiši celotno zalogo", s: "enkrat, ~1 ura", manual: true, why: "Ko je popisano vse, aplikacija sama ve, kdaj in koliko naročiti.",
     how: ["Pojdi po omarah in predalih po vrsti – lokacijo vpiši pri materialu.", "Obrazec ostane odprt, zato hitro dodajaš enega za drugim.", "Imaš popis v Excelu? Več → Uvoz iz Excela."],
     done: () => S().items.length >= 20 || guideDone.bulk, go: {view: "stock", sel: "[data-tour=add-item]", tip: "Dodajaj material enega za drugim."}},
@@ -646,7 +754,7 @@ const GUIDE = [
     how: ["Odpri material → Uredi.", "Minimum ≈ poraba v času dostave + malo rezerve.", "Cilj ≈ zaloga za 1 mesec. Ni treba na pamet – po nekaj tednih ti statistika pokaže porabo."],
     done: () => S().items.length > 0 && S().items.filter(i => num(i.minQty) > 0).length >= Math.ceil(S().items.length / 2), go: {view: "stock", sel: ".entry-main", tip: "Tapni material in nato Uredi."}},
   {id: "consume", t: "Zabeleži porabo", s: "5 sekund", why: "Ko vsak zabeleži, kar vzame iz omare, zaloga ostane točna. Odšteje se najprej serija z najkrajšim rokom.",
-    how: ["Na domači strani tapni Porabi (ali – pri materialu).", "Izberi material – pogosti so na vrhu.", "Nastavi količino in potrdi."],
+    how: ["Tapni Porabi (spodaj na sredini na telefonu, levo zgoraj na računalniku) ali − pri materialu.", "Izberi material – pogosti so na vrhu.", "Nastavi količino in potrdi."],
     done: () => S().moves.some(m => m.type === "out"), go: {view: "home", sel: "[data-tour=consume]", tip: "Tukaj zabeležiš porabo."}},
   {id: "receive", t: "Prevzemi dostavo", s: "1 minuta", why: "Ob dostavi vneseš novo serijo – z LOT in rokom uporabe, da veš, kaj porabiti prej.",
     how: ["Tapni Prevzem ali kar skeniraj škatlo.", "Izberi material, vpiši količino, LOT in rok (pri skeniranju se izpolnita sama).", "Cena na enoto je neobvezna, a potrebna za stroškovno analizo."],
@@ -673,182 +781,216 @@ const guideProgress = () => { const st = guideSteps(); const d = st.filter(g => 
 /* ================= RENDER ================= */
 let pending = false;
 function schedule() { if (pending) return; pending = true; requestAnimationFrame(() => { pending = false; render(); }); }
-const NAV_SIMPLE = [["home", "Domov", "home"], ["stock", "Zaloga", "box"], ["_add"], ["orders", "Naročila", "cart"], ["more", "Več", "more"]];
-const NAV_ADV = [["home", "Domov", "home"], ["stock", "Zaloga", "box"], ["_add"], ["orders", "Naročila", "cart"], ["stats", "Statistika", "chart"]];
+const isDesk = () => matchMedia("(min-width:761px)").matches;
 const VIEWS = {};
+const TITLES = {home: "Pregled", stock: "Zaloga", orders: "Naročila", offers: "Ponudbe", stats: "Statistika", suppliers: "Dobavitelji", guide: "Učni načrt", settings: "Nastavitve", more: "Več"};
+let lastDesk = null;
+const wide = (w = 1024) => matchMedia(`(min-width:${w}px)`).matches; /* tabele samo na širokem zaslonu */
+
 function render() {
   if (!live && !demo) return;
   $("#login").hidden = true; $("#app").hidden = false;
   M = derive();
-  const navDef = adv() ? NAV_ADV : NAV_SIMPLE;
-  const inNav = navDef.some(n => n[0] === view);
-  $("#nav").innerHTML = navDef.map(n => n[0] === "_add"
-    ? `<button class="nav-add" data-act="quick" data-tour="fab" aria-label="Hitra dejanja">${ic("plus", 26, 2.4)}</button>`
-    : `<button class="nav-btn ${view === n[0] || (!inNav && n[0] === (adv() ? "home" : "more") && ["more", "settings", "suppliers", "offers", "guide", "stats"].includes(view)) ? "on" : ""}" data-go="${n[0]}">${ic(n[2], 22)}<span>${n[1]}</span>${n[0] === "orders" && M.reorder.length ? `<span class="badge">${M.reorder.length}</span>` : ""}</button>`).join("");
-  const me = names[ME] || (ME || "").split("@")[0] || "?";
-  $("#avatarBtn").innerHTML = demo ? ic("sparkle", 18) : esc(initials(me));
+  lastDesk = isDesk() + "," + wide() + "," + wide(1180);
+  if ((view === "offers" || view === "stats") && !adv() && !lastDesk) { /* dostopno tudi v preprostem načinu prek Več */ }
+  const gp = guideProgress();
+  const crit = M.reorder.filter(x => x.status === "crit").length;
+  const navItem = (k, icn, label, cnt, cls) => `<button class="nav-item ${view === k ? "on" : ""}" data-go="${k}" title="${label}">${ic(icn, 19)}<span class="lbl">${label}</span>${cnt ? `<span class="cnt ${cls || ""}">${cnt}</span>` : ""}</button>`;
+  $("#nav").innerHTML =
+    navItem("home", "home", "Pregled") +
+    navItem("stock", "box", "Zaloga", M.expiring.length || "", M.expiring.some(e => e.d < 0) ? "crit" : "") +
+    navItem("orders", "cart", "Naročila", M.reorder.length || "", crit ? "crit" : "") +
+    (adv() ? navItem("offers", "tag", "Ponudbe") + navItem("stats", "chart", "Statistika") : "") +
+    navItem("suppliers", "truck", "Dobavitelji") +
+    `<div class="nav-label">Pomoč in nastavitve</div>` +
+    navItem("guide", "book", "Učni načrt", gp.d < gp.n ? `${gp.d}/${gp.n}` : "") +
+    navItem("settings", "gear", "Nastavitve") +
+    navItem("more", "more", "Več");
+  $("#sideActions").innerHTML = `<button class="btn primary" data-act="consume" data-tour="consume" title="Porabi material">${ic("minus", 18, 2.4)}<span class="lbl">Porabi</span></button><button class="btn" data-act="receive" data-tour="receive" title="Prevzem">${ic("down", 17)}<span class="lbl">Prevzem</span></button><button class="btn" data-act="scan" title="Skeniraj">${ic("scan", 17)}<span class="lbl">Skeniraj</span></button>`;
+  const me = demo ? "Vadnica" : (names[ME] || (ME || "").split("@")[0] || "?");
+  $("#sideFoot").innerHTML = `<span class="avatar">${demo ? ic("sparkle", 16) : esc(initials(me))}</span><div class="who"><b class="ell">${esc(me)}</b><span class="ell">${demo ? "izmišljeni podatki" : esc(ME || "")}</span></div>`;
+  $("#avatarBtn").innerHTML = demo ? ic("sparkle", 16) : esc(initials(me));
+  const tab = (k, icn, label, badge) => `<button class="tab ${view === k || (k === "more" && ["more", "offers", "stats", "suppliers", "guide", "settings"].includes(view)) ? "on" : ""}" data-go="${k}">${ic(icn, 21)}<span>${label}</span>${badge ? `<span class="badge">${badge}</span>` : ""}</button>`;
+  $("#tabbar").innerHTML = tab("home", "home", "Pregled") + tab("stock", "box", "Zaloga") +
+    `<button class="tab main-act" data-act="consume" data-tour="consume"><span class="pillbtn">${ic("minus", 22, 2.6)}</span><span>Porabi</span></button>` +
+    tab("orders", "cart", "Naročila", M.reorder.length || "") + tab("more", "more", "Več", gp.d < gp.n && !demo ? "" : "");
+  $("#topTitle").textContent = TITLES[view] || "Subriloga";
   const ae = document.activeElement, aid = ae && ae.id && $("#main").contains(ae) ? ae.id : null, sel = aid && ae.selectionStart != null ? [ae.selectionStart, ae.selectionEnd] : null;
   $("#main").innerHTML = banner() + (VIEWS[view] || VIEWS.home)();
   if (aid) { const el = document.getElementById(aid); if (el) { el.focus(); if (sel) try { el.setSelectionRange(sel[0], sel[1]); } catch (e) {} } }
   if (view === "stats" && !guideDone.stats) { guideDone.stats = true; lsSet("guide", guideDone); }
 }
 function banner() {
-  if (demo) return `<div class="banner">${ic("sparkle", 18)}<span><b>Vadnica.</b> Izmišljeni podatki – vadi brez skrbi, nič se ne shrani.</span><span class="spacer"></span><button class="btn sm" data-act="demo-off">Zapri vadnico</button></div>`;
+  if (demo) return `<div class="banner">${ic("sparkle", 18)}<span><b>Vadnica.</b> Izmišljeni podatki – vadi brez skrbi, nič se ne shrani.</span><span class="spacer"></span><button class="btn sm" data-act="demo-off">Zapri</button></div>`;
   return "";
 }
 const pill = x => `<span class="pill ${x.status}">${esc(x.label)}</span>`;
 function meter(x) {
   const top = Math.max(x.target, x.stock, 1) * 1.1;
   const w = Math.min(100, x.stock / top * 100), mk = x.min / top * 100;
-  return `<div class="meter ${x.status === "crit" ? "crit" : x.status === "warn" ? "warn" : ""}"><i style="width:${w}%"></i>${x.min ? `<b style="left:${mk}%"></b>` : ""}</div>`;
+  return `<div class="meter ${x.status === "crit" ? "crit" : x.status === "warn" ? "warn" : ""}" title="Zaloga ${nf.format(x.stock)} · minimum ${nf.format(x.min)}"><i style="width:${w}%"></i>${x.min ? `<b style="left:${mk}%"></b>` : ""}</div>`;
 }
-const dleft = x => x.daysLeft === Infinity ? "" : x.daysLeft > 365 ? "dovolj za > 1 leto" : "še ~" + nf0.format(Math.floor(x.daysLeft)) + " dni";
+const dleft = x => x.daysLeft === Infinity ? "" : x.daysLeft > 365 ? "> 1 leto" : "~" + nf0.format(Math.floor(x.daysLeft)) + " dni";
 const greet = () => { const h = new Date().getHours(); return h < 10 ? "Dobro jutro" : h < 18 ? "Dober dan" : "Dober večer"; };
-const empty = (icon, title, text, btn) => `<div class="empty"><div class="e-ic">${ic(icon, 24)}</div><b>${title}</b>${text}${btn ? `<div style="margin-top:14px">${btn}</div>` : ""}</div>`;
+const empty = (icon, title, text, btn) => `<div class="empty"><div class="e-ic">${ic(icon, 22)}</div><b>${title}</b>${text}${btn ? `<div style="margin-top:14px">${btn}</div>` : ""}</div>`;
+const head = (title, sub, actions = "", cls = "") => `<div class="page-head ${cls}"><div style="min-width:0"><h1>${title}</h1>${sub ? `<p>${sub}</p>` : ""}</div>${actions ? `<div class="actions">${actions}</div>` : ""}</div>`;
+const panel = (title, body, link = "", cls = "") => `<section class="panel ${cls}"><div class="panel-h"><h2>${title}</h2>${link}</div>${body}</section>`;
+const nearestLot = x => x.lots.find(l => l.expiry);
 
-function itemEntry(x) {
-  const i = x.item, nl = x.lots.find(l => l.expiry), d = nl ? daysUntil(nl.expiry) : null;
-  const sub = [i.location, x.daily ? dleft(x) : ""].filter(Boolean).join(" · ") || (i.category || "");
-  return `<div class="entry s-${x.status}">
-    <div class="row" style="flex-wrap:nowrap;gap:0">
-      <button class="entry-main" data-item="${i.id}">${avatar(i)}
-        <div class="e-info"><p class="e-title">${esc(i.name)}</p><p class="e-sub">${esc(sub)}</p>
-          <div class="e-meta">${pill(x)}${nl && d <= settings().warnDays ? `<span class="pill ${d < 0 ? "crit" : "warn"}">${ic("cal", 12)} ${d < 0 ? "poteklo" : fmtShort(nl.expiry)}</span>` : ""}${x.onOrder ? `<span class="pill info">+${nf.format(x.onOrder)} na poti</span>` : ""}</div>
-        </div>
-        <div class="e-stock"><div class="q">${nf.format(x.stock)}</div><div class="u">${esc(i.unit)}</div></div>
-      </button>
-      <div class="e-quick"><button class="qbtn minus" data-act="consume" data-id="${i.id}" aria-label="Porabi">${ic("minus", 18, 2.4)}</button><button class="qbtn" data-act="receive" data-id="${i.id}" aria-label="Prevzem">${ic("plus", 18, 2.4)}</button></div>
-    </div>
-  </div>`;
-}
-
-/* ---------- HOME ---------- */
+/* ---------- PREGLED ---------- */
 VIEWS.home = () => {
   const s = S(), gp = guideProgress();
-  const me = (names[ME] || "").split(" ")[0];
-  const agg = monthly(), mk = monthKey(today());
+  const first = (names[ME] || "").split(" ")[0];
+  const agg = monthly(), mk = monthKey(today()), prev = lastMonths(2)[0];
   const crit = M.reorder.filter(x => x.status === "crit").length;
   const expPast = M.expiring.filter(e => e.d < 0).length;
-  const openOrders = s.orders.filter(o => o.status === "sent");
-  const recent = s.moves.slice().sort((a, b) => ((b.date || "") + (b.ts || "")).localeCompare((a.date || "") + (a.ts || ""))).slice(0, 6);
-  let h = `<section class="hero">
-    <p class="hi">${greet()}${me ? ", " + esc(me) : ""} · ${new Date().toLocaleDateString("sl-SI", {weekday: "long", day: "numeric", month: "long"})}</p>
-    <p class="big">${!s.items.length ? "Začnimo s popisom zaloge." : M.reorder.length ? `${M.reorder.length} ${M.reorder.length === 1 ? "material je treba" : M.reorder.length < 5 ? "materiali so za" : "materialov je za"} naročiti.` : "Zaloga je v redu."}</p>
-    <div class="hero-actions">
-      <button class="main" data-act="consume" data-tour="consume">${ic("minus", 22, 2.4)}Porabi</button>
-      <button data-act="receive" data-tour="receive">${ic("down", 22)}Prevzem</button>
-      <button data-go="orders">${ic("cart", 22)}Naroči</button>
-    </div></section>`;
-  if (gp.d < gp.n) h += `<button class="card guide-card" data-go="guide"><div class="ring" style="--p:${Math.round(gp.d / gp.n * 100)}"><span>${gp.d}/${gp.n}</span></div><div style="flex:1;min-width:0"><div class="g-t">Učni načrt</div><div class="g-s">Naslednji korak: ${esc(gp.next.t)}</div></div>${ic("right", 20)}</button>`;
-  if (s.items.length) {
-    h += `<div class="tiles">
-      <button class="tile ${crit ? "crit" : M.reorder.length ? "warn" : "ok"}" data-go="orders"><span class="t-l"><span class="t-ic">${ic("cart", 15)}</span>Za naročilo</span><span class="t-v">${M.reorder.length}</span><span class="t-s">${crit ? crit + " nujno" : M.reorder.length ? "v kratkem" : "vse nad minimumom"}</span></button>
-      <button class="tile ${expPast ? "crit" : M.expiring.length ? "warn" : "ok"}" data-go="stock" data-filter="exp"><span class="t-l"><span class="t-ic">${ic("cal", 15)}</span>Rok uporabe</span><span class="t-v">${M.expiring.length}</span><span class="t-s">${expPast ? expPast + " poteklo" : "v " + settings().warnDays + " dneh"}</span></button>
-      ${adv() ? `<div class="tile"><span class="t-l"><span class="t-ic">${ic("euro", 15)}</span>Vrednost zaloge</span><span class="t-v">${eur0.format(M.totalValue)}</span><span class="t-s">po nabavnih cenah</span></div>
-      <button class="tile" data-go="stats"><span class="t-l"><span class="t-ic">${ic("chart", 15)}</span>Poraba ta mesec</span><span class="t-v">${eur0.format(sumV((agg[mk] || {}).out))}</span><span class="t-s">${openOrders.length} naročil na poti</span></button>` : ""}
-    </div>`;
-    if (M.frequent.length) h += `<h2 class="sec">Pogosto porabljeno</h2><div class="chip-row">${M.frequent.map(x => `<button class="chip" data-act="consume" data-id="${x.item.id}">− ${esc(x.item.name)}</button>`).join("")}</div>`;
-    h += `<div class="two-col"><div>`;
-    h += `<h2 class="sec">Treba naročiti<span class="spacer"></span>${M.reorder.length ? `<button class="link" data-go="orders">Pripravi →</button>` : ""}</h2>`;
-    h += M.reorder.length ? `<div class="list">${M.reorder.sort((a, b) => (a.status === "crit" ? 0 : 1) - (b.status === "crit" ? 0 : 1) || a.daysLeft - b.daysLeft).slice(0, 5).map(itemEntry).join("")}</div>` : `<div class="card">${empty("check", "Vse je na zalogi", "Ko bo material padel pod minimum, se pojavi tukaj.")}</div>`;
-    h += `</div><div>`;
-    if (M.expiring.length) h += `<h2 class="sec">Rok uporabe se izteka</h2><div class="card">${M.expiring.slice(0, 5).map(e => `<button class="rowcard" data-item="${e.x.item.id}"><span class="ic ${e.d < 0 ? "crit" : "warn"}">${ic("cal", 17)}</span><div class="grow"><div class="t">${esc(e.x.item.name)}</div><div class="s">LOT <span class="mono">${esc(e.l.lot || "—")}</span> · ${nf.format(e.l.qty)} ${esc(e.x.item.unit)}</div></div><span class="pill ${e.d < 0 ? "crit" : e.d <= 30 ? "warn" : "info"}">${e.d < 0 ? "Poteklo" : e.d === 0 ? "Danes" : "še " + e.d + " d"}</span></button>`).join("")}</div>`;
-    if (recent.length) h += `<h2 class="sec">Zadnje dogajanje<span class="spacer"></span><button class="link" data-act="history">Vse →</button></h2><div class="card">${recent.map(moveRow).join("")}</div>`;
-    h += `</div></div>`;
-  } else {
-    h += `<h2 class="sec">Prvi koraki</h2><div class="card">${empty("box", "Še ni materiala", "Začni z učnim načrtom – vodi te korak za korakom.", `<button class="btn primary" data-go="guide">${ic("book", 18)} Odpri učni načrt</button>`)}</div>`;
-  }
-  return h;
+  const sent = s.orders.filter(o => o.status === "sent"), drafts = s.orders.filter(o => o.status === "draft");
+  const late = sent.filter(o => { const sp = M.sup[o.supplierId]; return o.sentAt && daysUntil(o.sentAt) + (num(sp && sp.deliveryDays) || 3) < 0; });
+  const recent = s.moves.slice().sort((a, b) => ((b.date || "") + (b.ts || "")).localeCompare((a.date || "") + (a.ts || ""))).slice(0, 7);
+  const dateStr = new Date().toLocaleDateString("sl-SI", {weekday: "long", day: "numeric", month: "long"});
+  let h = head(`${greet()}${first ? ", " + esc(first) : ""}`, dateStr.charAt(0).toUpperCase() + dateStr.slice(1),
+    "", "keep-h1");
+  h += `<div class="qa only-m"><button class="primary" data-act="consume" data-tour="consume">${ic("minus", 22, 2.4)}Porabi</button><button data-act="receive" data-tour="receive">${ic("down", 22)}Prevzem</button><button data-act="scan">${ic("scan", 22)}Skeniraj</button></div>`;
+  if (gp.d < gp.n) h += `<button class="panel" data-go="guide" style="display:flex;align-items:center;gap:14px;width:100%;text-align:left;padding:12px 16px;margin-bottom:16px;cursor:pointer;color:inherit">
+    <span class="ic-sq">${ic("book", 17)}</span><span style="flex:1;min-width:0"><span class="row" style="justify-content:space-between"><b>Učni načrt</b><span class="small muted num">${gp.d} / ${gp.n}</span></span><span class="progress" style="display:block;margin:6px 0 4px"><i style="width:${Math.round(gp.d / gp.n * 100)}%"></i></span><span class="small muted ell" style="display:block">Naslednje: ${esc(gp.next.t)}</span></span>${ic("right", 18)}</button>`;
+  if (!s.items.length) return h + panel("Prvi koraki", empty("box", "Še ni materiala", "Učni načrt te vodi korak za korakom – od dobaviteljev do popisa zaloge.", `<button class="btn primary" data-go="guide">${ic("book", 17)} Odpri učni načrt</button> <button class="btn" data-act="demo-on">${ic("sparkle", 17)} Vadnica</button>`));
+  h += `<div class="kpis">
+    <button class="kpi ${crit ? "crit" : M.reorder.length ? "warn" : "ok"}" data-go="orders"><span class="k-l"><span class="dot"></span>Za naročilo</span><span class="k-v">${M.reorder.length}</span><span class="k-s">${crit ? crit + " pod minimumom" : M.reorder.length ? "zmanjkuje kmalu" : "vse nad minimumom"}</span></button>
+    <button class="kpi ${expPast ? "crit" : M.expiring.length ? "warn" : "ok"}" data-go="stock" data-filter="exp"><span class="k-l"><span class="dot"></span>Rok uporabe</span><span class="k-v">${M.expiring.length}</span><span class="k-s">${expPast ? expPast + " že poteklo" : "v " + settings().warnDays + " dneh"}</span></button>
+    ${adv() ? `<button class="kpi" data-go="stats"><span class="k-l">Poraba ta mesec</span><span class="k-v">${eur0.format(sumV((agg[mk] || {}).out))}</span><span class="k-s">prejšnji ${eur0.format(sumV((agg[prev] || {}).out))}</span></button>
+    <div class="kpi"><span class="k-l">Vrednost zaloge</span><span class="k-v">${eur0.format(M.totalValue)}</span><span class="k-s">${s.items.length} materialov</span></div>` : ""}
+  </div>`;
+  const tasks = [];
+  if (crit) tasks.push(["orders", "", "crit", "cart", `${crit} ${crit === 1 ? "material je" : "materialov je"} pod minimumom`, "Pripravi naročilo pri dobavitelju"]);
+  if (M.reorder.length - crit > 0) tasks.push(["orders", "", "warn", "cart", `${M.reorder.length - crit} kmalu zmanjka`, "Zadošča le še za rok dostave"]);
+  if (expPast) tasks.push(["stock", "exp", "crit", "cal", `${expPast} ${expPast === 1 ? "serija je potekla" : "serij je poteklo"}`, "Odpiši ali preveri"]);
+  if (M.expiring.length - expPast > 0) tasks.push(["stock", "exp", "warn", "cal", `${M.expiring.length - expPast} z rokom v ${settings().warnDays} dneh`, "Porabi najprej te serije"]);
+  if (late.length) tasks.push(["orders", "", "crit", "truck", `${late.length} ${late.length === 1 ? "naročilo zamuja" : "naročil zamuja"}`, "Preveri pri dobavitelju"]);
+  if (drafts.length) tasks.push(["orders", "", "mute", "edit", `${drafts.length} ${drafts.length === 1 ? "osnutek čaka" : "osnutkov čaka"}`, "Preveri in pošlji"]);
+  if (sent.length - late.length > 0) tasks.push(["orders", "", "", "truck", `${sent.length - late.length} na poti`, "Ob dostavi klikni Prevzemi"]);
+  const taskHTML = tasks.length ? tasks.map(t => `<button class="task" data-go="${t[0]}" ${t[1] ? `data-filter="${t[1]}"` : ""}><span class="t-ic ${t[2]}">${ic(t[3], 17)}</span><span class="grow"><span class="t" style="display:block">${t[4]}</span><span class="s">${t[5]}</span></span><span class="arrow">${ic("right", 18)}</span></button>`).join("")
+    : `<div class="task"><span class="t-ic ok">${ic("check", 17, 2.4)}</span><span class="grow"><span class="t" style="display:block">Vse je urejeno</span><span class="s">Ni ničesar za naročiti ali odpisati.</span></span></div>`;
+  if (M.frequent.length) h += `<div class="row" style="margin-bottom:8px;flex-wrap:nowrap"><span class="small muted nowrap">Hitra poraba:</span><div class="chip-row" style="margin:0;flex:1">${M.frequent.map(x => `<button class="chip" data-act="consume" data-id="${x.item.id}">− ${esc(x.item.name)}</button>`).join("")}</div></div>`;
+  h += `<div class="grid cols-2">`;
+  h += panel("Opravila", taskHTML);
+  h += panel("Zadnje dogajanje", recent.length ? recent.map(moveRow).join("") : `<div class="panel-empty">Še ni vnosov.</div>`, `<button class="link" data-act="history">Vse</button>`);
+  if (M.reorder.length) h += panel("Treba naročiti", M.reorder.slice().sort((a, b) => (a.status === "crit" ? 0 : 1) - (b.status === "crit" ? 0 : 1) || a.daysLeft - b.daysLeft).slice(0, 6).map(itemRow).join(""), `<button class="link" data-go="orders">Pripravi</button>`);
+  if (M.expiring.length) h += panel("Rok uporabe", M.expiring.slice(0, 6).map(e => `<button class="lrow" data-item="${e.x.item.id}"><span class="ic-sq ${e.d < 0 ? "crit" : "warn"}">${ic("cal", 16)}</span><span class="grow"><span class="t" style="display:block">${esc(e.x.item.name)}</span><span class="s" style="display:block">LOT <span class="mono">${esc(e.l.lot || "—")}</span> · ${nf.format(e.l.qty)} ${esc(e.x.item.unit)}</span></span><span class="pill ${e.d < 0 ? "crit" : "warn"}">${e.d < 0 ? "poteklo" : e.d === 0 ? "danes" : "še " + e.d + " d"}</span></button>`).join(""), `<button class="link" data-go="stock" data-filter="exp">Vse</button>`);
+  return h + `</div>`;
 };
 const MT = {out: ["Poraba", "mute", "minus"], in: ["Prevzem", "ok", "down"], waste: ["Odpis", "crit", "trash"], adjust: ["Inventura", "info", "count"]};
 function moveRow(m) {
   const it = M.byId[m.itemId], t = MT[m.type] || [m.type, "mute", "box"], q = num(m.qty);
   const who = m.byUser ? (names[m.byUser] || m.byUser.split("@")[0]) : "";
-  return `<button class="rowcard" ${it ? `data-item="${it.id}"` : ""}><span class="ic ${t[1]}">${ic(t[2], 16)}</span><div class="grow"><div class="t">${it ? esc(it.name) : "Izbrisan material"}</div><div class="s">${t[0]} · ${fmtShort(m.date)}${who ? " · " + esc(who) : ""}</div></div><span class="num" style="font-weight:800">${m.type === "in" ? "+" : m.type === "adjust" ? (q >= 0 ? "+" : "−") : "−"}${nf.format(Math.abs(q))}</span></button>`;
+  return `<button class="lrow" ${it ? `data-item="${it.id}"` : ""}><span class="ic-sq ${t[1]}">${ic(t[2], 16)}</span><span class="grow"><span class="t" style="display:block">${it ? esc(it.name) : "Izbrisan material"}</span><span class="s" style="display:block">${t[0]} · ${fmtShort(m.date)}${who ? " · " + esc(who) : ""}</span></span><span class="r num" style="font-weight:700">${m.type === "in" ? "+" : m.type === "adjust" ? (q >= 0 ? "+" : "−") : "−"}${nf.format(Math.abs(q))}</span></button>`;
+}
+function itemRow(x) {
+  const i = x.item, nl = nearestLot(x), d = nl ? daysUntil(nl.expiry) : null;
+  const sub = [i.location, x.daily ? "še " + dleft(x) : "", nl && d <= settings().warnDays ? (d < 0 ? "poteklo" : "rok " + fmtShort(nl.expiry)) : ""].filter(Boolean).join(" · ") || i.category || "";
+  return `<div class="lrow click" data-item="${i.id}" role="button" tabindex="0"><span class="sdot ${x.status}" title="${esc(x.label)}"></span><span class="grow"><span class="t" style="display:block">${esc(i.name)}</span><span class="s" style="display:block">${esc(sub)}</span></span><span class="r"><span class="q" style="display:block">${nf.format(x.stock)}</span><span class="u">${esc(i.unit)}</span></span><button class="btn sm soft" data-act="consume" data-id="${i.id}" aria-label="Porabi ${esc(i.name)}" style="min-width:40px;padding:0">${ic("minus", 17, 2.4)}</button></div>`;
 }
 
-/* ---------- STOCK ---------- */
+/* ---------- ZALOGA ---------- */
 VIEWS.stock = () => {
   const cats = [...new Set(S().items.map(i => i.category).filter(Boolean))].sort((a, b) => a.localeCompare(b, "sl"));
   const cnt = {order: M.reorder.length, exp: M.list.filter(x => x.expLots.length).length};
-  return `<h1 class="page">Zaloga</h1><p class="page-sub">${S().items.length} materialov${adv() ? " · vrednost " + eur0.format(M.totalValue) : ""}</p>
-  <div class="search-bar">${ic("search", 18)}<input type="search" id="q" placeholder="Išči po nazivu, šifri, lokaciji …" value="${esc(ui.q)}" autocomplete="off"></div>
+  const acts = `<button class="btn primary" data-act="item-new" data-tour="add-item">${ic("plus", 17, 2.4)} Nov material</button>` + (adv() ? `<button class="btn hide-m" data-act="count">${ic("count", 17)} Inventura</button><button class="btn hide-m" data-act="import">${ic("up", 17)} Uvoz</button><button class="btn hide-m" data-act="export-stock">${ic("down", 17)} CSV</button>` : "");
+  return head("Zaloga", `${S().items.length} materialov${adv() ? " · vrednost " + eur0.format(M.totalValue) : ""}`, acts) +
+  `<div class="toolbar"><div class="search-bar">${ic("search", 17)}<input type="search" id="q" placeholder="Išči po nazivu, šifri, lokaciji …" value="${esc(ui.q)}" autocomplete="off" aria-label="Iskanje"></div></div>
   <div class="chip-row">
     <button class="chip ${ui.filter === "all" ? "on" : ""}" data-filter="all">Vse <span class="c">${S().items.length}</span></button>
     <button class="chip crit ${ui.filter === "order" ? "on" : ""}" data-filter="order">Za naročilo <span class="c">${cnt.order}</span></button>
     <button class="chip warn ${ui.filter === "exp" ? "on" : ""}" data-filter="exp">Rok poteka <span class="c">${cnt.exp}</span></button>
     ${cats.map(c => `<button class="chip ${ui.filter === "c:" + c ? "on" : ""}" data-filter="c:${esc(c)}">${esc(c)}</button>`).join("")}
   </div>
-  <div class="row" style="margin-bottom:12px"><button class="btn primary sm" data-act="item-new" data-tour="add-item">${ic("plus", 16, 2.4)} Nov material</button>${adv() ? `<button class="btn sm" data-act="count">${ic("count", 16)} Inventura</button><button class="btn sm" data-act="import">${ic("up", 16)} Uvoz</button>` : ""}</div>
-  <div class="list grid-2" id="stockList">${stockList()}</div>`;
+  <section class="panel" id="stockList">${stockList()}</section>`;
 };
-function stockList() {
+function stockFiltered() {
   const q = ui.q.toLowerCase().trim();
   const list = M.list.filter(x => {
     const i = x.item;
-    if (q && ![i.name, i.code, i.location, i.category].some(v => String(v || "").toLowerCase().includes(q))) return false;
+    if (q && ![i.name, i.code, i.location, i.category, i.gtin].some(v => String(v || "").toLowerCase().includes(q))) return false;
     if (ui.filter === "order") return x.status === "crit" || x.status === "warn";
     if (ui.filter === "exp") return x.expLots.length > 0;
     if (ui.filter.startsWith("c:")) return i.category === ui.filter.slice(2);
     return true;
   });
   const rank = {crit: 0, warn: 1, info: 2, ok: 3, mute: 4};
-  list.sort((a, b) => rank[a.status] - rank[b.status] || a.item.name.localeCompare(b.item.name, "sl"));
-  if (!list.length) return `<div class="card" style="grid-column:1/-1">${M.list.length ? empty("search", "Ni zadetkov", "Spremeni iskanje ali filter.") : empty("box", "Seznam je prazen", "Dodaj prvi material.", `<button class="btn primary" data-act="item-new">${ic("plus", 16, 2.4)} Nov material</button>`)}</div>`;
-  return list.map(itemEntry).join("");
+  return list.sort((a, b) => rank[a.status] - rank[b.status] || a.item.name.localeCompare(b.item.name, "sl"));
+}
+function stockList() {
+  const list = stockFiltered();
+  if (!list.length) return M.list.length ? empty("search", "Ni zadetkov", "Spremeni iskanje ali filter.") : empty("box", "Seznam je prazen", "Dodaj prvi material ali ga uvozi iz Excela.", `<button class="btn primary" data-act="item-new">${ic("plus", 16, 2.4)} Nov material</button>`);
+  if (!wide(1180)) return list.map(itemRow).join("");
+  const wd = settings().warnDays;
+  return `<div class="tablewrap"><table class="tbl"><thead><tr><th>Material</th><th class="c-opt">Kategorija</th><th class="r">Zaloga</th><th style="width:130px">Min / cilj</th>${adv() ? `<th class="r c-opt">Poraba/mes</th>` : ""}<th class="r c-opt2">Dovolj za</th><th>Najbližji rok</th><th>Stanje</th><th class="r" style="width:96px"></th></tr></thead><tbody>${list.map(x => {
+    const i = x.item, nl = nearestLot(x), d = nl ? daysUntil(nl.expiry) : null;
+    return `<tr class="click" data-item="${i.id}"><td><div class="cell-item">${avatar(i)}<div style="min-width:0"><div class="name ell">${esc(i.name)}</div><div class="sub ell">${[i.code && `<span class="mono">${esc(i.code)}</span>`, i.location && esc(i.location)].filter(Boolean).join(" · ") || "&nbsp;"}</div></div></div></td>
+      <td class="c-opt"><span class="tag">${esc(i.category || "—")}</span></td>
+      <td class="r nowrap"><b class="num">${nf.format(x.stock)}</b> <span class="sub">${esc(i.unit)}</span>${x.onOrder ? `<div class="sub">+${nf.format(x.onOrder)} na poti</div>` : ""}</td>
+      <td>${meter(x)}<div class="sub num">${nf.format(x.min)} / ${nf.format(x.target)}</div></td>
+      ${adv() ? `<td class="r num c-opt">${x.monthly ? nf.format(Math.round(x.monthly * 10) / 10) : "—"}</td>` : ""}
+      <td class="r num nowrap c-opt2">${dleft(x) || "—"}</td>
+      <td class="nowrap">${nl ? (d <= wd ? `<span class="pill ${d < 0 ? "crit" : "warn"}">${fmtDate(nl.expiry)}</span>` : `<span class="small">${fmtDate(nl.expiry)}</span>`) : '<span class="faint">—</span>'}</td>
+      <td>${pill(x)}</td>
+      <td class="r acts"><button class="btn sm soft" data-act="consume" data-id="${i.id}" title="Porabi" aria-label="Porabi">${ic("minus", 16, 2.4)}</button> <button class="btn sm" data-act="receive" data-id="${i.id}" title="Prevzem" aria-label="Prevzem">${ic("plus", 16, 2.4)}</button></td></tr>`;
+  }).join("")}</tbody></table></div>`;
 }
 
-/* ---------- ORDERS ---------- */
+/* ---------- NAROČILA ---------- */
 VIEWS.orders = () => {
   const s = S(); const groups = {};
   M.reorder.forEach(x => { const sid = x.orderSupplier ? x.orderSupplier.id : "_"; (groups[sid] = groups[sid] || []).push(x); });
   const drafts = s.orders.filter(o => o.status === "draft"), sent = s.orders.filter(o => o.status === "sent");
   const done = s.orders.filter(o => o.status === "received").sort((a, b) => (b.receivedAt || "").localeCompare(a.receivedAt || "")).slice(0, 8);
-  let h = `<h1 class="page" data-tour="orders-top">Naročila</h1><p class="page-sub">Predlog je izračunan iz minimuma, cilja in porabe zadnjih 90 dni.</p>`;
-  h += `<h2 class="sec">Predlog za naročilo<span class="spacer"></span><button class="link" data-act="order-new">+ Prazno naročilo</button></h2>`;
-  if (Object.keys(groups).length) h += `<div class="list">` + Object.entries(groups).map(([sid, arr]) => {
+  let h = head(`<span data-tour="orders-top">Naročila</span>`, "Predlog je izračunan iz minimuma, cilja in porabe zadnjih 90 dni.", `<button class="btn" data-act="order-new">${ic("plus", 17, 2.4)} Prazno naročilo</button>`);
+  if (drafts.length || sent.length) h += `<div class="grid cols-2" style="margin-bottom:16px">${drafts.length ? panel("Osnutki", drafts.map(orderRow).join("")) : ""}${sent.length ? panel("Na poti", sent.map(orderRow).join("")) : ""}</div>`;
+  h += `<div class="grid ${Object.keys(groups).length > 1 ? "cols-2" : ""}">`;
+  if (Object.keys(groups).length) h += Object.entries(groups).map(([sid, arr]) => {
     const sp = M.sup[sid]; const tot = arr.reduce((a, x) => a + x.packs * (x.best && x.best.supplierId === sid ? num(x.best.price) : x.unitCost * x.packSize), 0);
-    return `<div class="card"><div class="card-pad" style="padding-bottom:6px"><div class="row"><div style="flex:1;min-width:0"><div style="font-weight:800;font-size:16.5px">${sp ? esc(sp.name) : "Brez dobavitelja"}</div><div class="small muted">${arr.length} ${arr.length === 1 ? "artikel" : "artiklov"} · ocena ${eur.format(tot)}</div></div>${sp ? `<button class="btn primary sm" data-act="draft-from" data-sid="${sid}">Ustvari naročilo</button>` : ""}</div>
-      ${sp && num(sp.minOrder) > tot ? `<div class="pill warn" style="margin-top:8px">pod ${eur0.format(num(sp.minOrder))} za brezplačno dostavo</div>` : ""}${!sp ? `<p class="small muted" style="margin:8px 0 0">Pri materialu določi glavnega dobavitelja ali dodaj ponudbo.</p>` : ""}</div>
-      ${arr.map(x => `<button class="rowcard" data-item="${x.item.id}">${avatar(x.item)}<div class="grow"><div class="t">${esc(x.item.name)}</div><div class="s">zaloga ${nf.format(x.stock)} · min ${nf.format(x.min)} · cilj ${nf.format(x.target)}</div></div><div style="text-align:right"><div style="font-weight:800" class="num">${x.packs} ×</div><div class="xs faint">${nf.format(x.packSize)} ${esc(x.item.unit)}</div></div></button>`).join("")}</div>`;
-  }).join("") + `</div>`;
-  else h += `<div class="card">${empty("check", "Ni treba naročiti ničesar", "Vse zaloge zadoščajo za rok dostave.")}</div>`;
-  if (drafts.length) h += `<h2 class="sec">Osnutki</h2><div class="card">${drafts.map(orderRow).join("")}</div>`;
-  h += `<h2 class="sec">Na poti</h2><div class="card">${sent.length ? sent.map(orderRow).join("") : `<div class="empty" style="padding:18px">Ni odprtih naročil.</div>`}</div>`;
-  if (done.length) h += `<h2 class="sec">Prevzeta</h2><div class="card">${done.map(orderRow).join("")}</div>`;
+    const warnMin = sp && num(sp.minOrder) > tot;
+    return `<section class="panel"><div class="panel-h"><h2 style="flex:1;min-width:0"><span class="ell" style="display:block">${sp ? esc(sp.name) : "Brez dobavitelja"}</span><span class="small muted" style="font-weight:400;display:block;white-space:normal">${arr.length} ${arr.length === 1 ? "artikel" : "artiklov"} · ocena ${eur.format(tot)}</span></h2>${sp ? `<button class="btn sm primary" data-act="draft-from" data-sid="${sid}">Ustvari naročilo</button>` : ""}</div>
+      ${warnMin ? `<div class="panel-b" style="padding-bottom:0"><span class="pill warn">pod ${eur0.format(num(sp.minOrder))} za brezplačno dostavo</span></div>` : ""}${!sp ? `<div class="panel-b small muted" style="padding-bottom:0">Pri materialu določi glavnega dobavitelja ali dodaj ponudbo.</div>` : ""}
+      ${arr.map(x => `<button class="lrow" data-item="${x.item.id}"><span class="sdot ${x.status}"></span><span class="grow"><span class="t" style="display:block">${esc(x.item.name)}</span><span class="s" style="display:block">zaloga ${nf.format(x.stock)} · min ${nf.format(x.min)} · cilj ${nf.format(x.target)}</span></span><span class="r"><span class="q" style="display:block">${x.packs} ×</span><span class="u">${nf.format(x.packSize)} ${esc(x.item.unit)}</span></span></button>`).join("")}</section>`;
+  }).join("");
+  else h += panel("Predlog za naročilo", empty("check", "Ni treba naročiti ničesar", "Vse zaloge zadoščajo za rok dostave."));
+  h += `</div>`;
+  if (done.length) h += `<div style="margin-top:16px">${panel("Prevzeta naročila", done.map(orderRow).join(""))}</div>`;
   return h;
 };
 function orderRow(o) {
   const sp = M.sup[o.supplierId], st = {draft: ["Osnutek", "mute", "edit"], sent: ["Na poti", "info", "truck"], received: ["Prevzeto", "ok", "check"]}[o.status] || ["?", "mute", "box"];
-  const late = o.status === "sent" && sp && o.sentAt && daysUntil(o.sentAt) + (num(sp.deliveryDays) || 3) < 0;
-  return `<button class="rowcard" data-act="order-open" data-id="${o.id}"><span class="ic ${late ? "crit" : st[1]}">${ic(st[2], 16)}</span><div class="grow"><div class="t">${sp ? esc(sp.name) : "Dobavitelj ni izbran"}</div><div class="s">${(o.lines || []).length} post. · ${eur.format(orderTotal(o))} · ${o.status === "draft" ? "ustvarjeno " + fmtShort(o.createdAt) : o.status === "sent" ? "poslano " + fmtShort(o.sentAt) : "prevzeto " + fmtShort(o.receivedAt)}</div></div><span class="pill ${late ? "crit" : st[1]}">${late ? "Zamuja" : st[0]}</span></button>`;
+  const late = o.status === "sent" && o.sentAt && daysUntil(o.sentAt) + (num(sp && sp.deliveryDays) || 3) < 0;
+  return `<button class="lrow" data-act="order-open" data-id="${o.id}"><span class="ic-sq ${late ? "crit" : st[1]}">${ic(st[2], 16)}</span><span class="grow"><span class="t" style="display:block">${sp ? esc(sp.name) : "Dobavitelj ni izbran"}</span><span class="s" style="display:block">${(o.lines || []).length} post. · ${eur.format(orderTotal(o))} · ${o.status === "draft" ? "ustvarjeno " + fmtShort(o.createdAt) : o.status === "sent" ? "poslano " + fmtShort(o.sentAt) : "prevzeto " + fmtShort(o.receivedAt)}</span></span><span class="pill ${late ? "crit" : st[1]}">${late ? "Zamuja" : st[0]}</span></button>`;
 }
 
-/* ---------- OFFERS ---------- */
+/* ---------- PONUDBE ---------- */
 VIEWS.offers = () => {
   const q = ui.offerQ.toLowerCase().trim();
   const withO = M.list.filter(x => x.offers.length && (!q || x.item.name.toLowerCase().includes(q))).sort((a, b) => a.item.name.localeCompare(b.item.name, "sl"));
   const stale = S().offers.filter(o => o.date && daysUntil(o.date) < -90).length;
   let saving = 0; M.list.forEach(x => { if (x.offers.length > 1 && x.monthly) saving += (x.offers[x.offers.length - 1].unit - x.offers[0].unit) * x.monthly * 12; });
-  return `<h1 class="page">Ponudbe</h1><p class="page-sub">Primerjava cen na enoto med dobavitelji.</p>
-  <div class="tiles" style="margin-top:0;margin-bottom:14px">
-    <div class="tile"><span class="t-l">Z vneseno ceno</span><span class="t-v">${M.list.filter(x => x.offers.length).length}</span><span class="t-s">od ${M.list.length} materialov</span></div>
-    <div class="tile ${stale ? "warn" : ""}"><span class="t-l">Zastarele cene</span><span class="t-v">${stale}</span><span class="t-s">starejše od 90 dni</span></div>
-    ${saving > 0 ? `<div class="tile ok"><span class="t-l">Razlika v ceni</span><span class="t-v">${eur0.format(saving)}</span><span class="t-s">letno, najdražji vs. najcenejši</span></div>` : ""}
+  return head("Ponudbe in cene", "Primerjava cene na enoto med dobavitelji.", `<button class="btn primary" data-act="offer-new" data-tour="add-offer">${ic("plus", 17, 2.4)} Dodaj ponudbo</button>`) +
+  `<div class="kpis">
+    <div class="kpi"><span class="k-l">Z vneseno ceno</span><span class="k-v">${M.list.filter(x => x.offers.length).length}</span><span class="k-s">od ${M.list.length} materialov</span></div>
+    <div class="kpi ${stale ? "warn" : "ok"}"><span class="k-l"><span class="dot"></span>Zastarele cene</span><span class="k-v">${stale}</span><span class="k-s">starejše od 90 dni</span></div>
+    <div class="kpi"><span class="k-l">Razlika v ceni</span><span class="k-v">${eur0.format(saving)}</span><span class="k-s">letno, najdražji – najcenejši</span></div>
   </div>
-  <div class="row" style="margin-bottom:12px"><button class="btn primary sm" data-act="offer-new" data-tour="add-offer">${ic("plus", 16, 2.4)} Dodaj ponudbo</button></div>
-  <div class="search-bar">${ic("search", 18)}<input type="search" id="oq" placeholder="Išči material …" value="${esc(ui.offerQ)}"></div>
-  <div class="list grid-2">${withO.length ? withO.map(x => `<div class="card"><button class="rowcard" data-item="${x.item.id}">${avatar(x.item)}<div class="grow"><div class="t">${esc(x.item.name)}</div><div class="s">${x.monthly ? "poraba ~" + nf.format(Math.round(x.monthly)) + " " + esc(x.item.unit) + "/mes" : esc(x.item.category || "")}</div></div></button>
-    ${x.offers.map((o, i) => { const sp = M.sup[o.supplierId], age = o.date ? -daysUntil(o.date) : null; return `<div class="rowcard" style="padding-left:20px"><div class="grow"><div class="t" style="font-weight:600">${esc(sp ? sp.name : "?")}</div><div class="s">${eur.format(num(o.price))} / ${nf.format(num(o.packSize) || 1)} ${esc(x.item.unit)}${age != null ? ` · <span style="color:${age > 90 ? "var(--warn)" : "inherit"}">${fmtShort(o.date)}</span>` : ""}</div></div><span class="tag ${i === 0 ? "best" : ""} num">${eur.format(o.unit)}</span>${i ? `<span class="xs faint num">+${nf0.format((o.unit / x.offers[0].unit - 1) * 100)}%</span>` : ""}${o.url ? `<a class="btn sm ghost" href="${esc(o.url)}" target="_blank" rel="noopener" aria-label="Odpri trgovino">${ic("link", 16)}</a>` : ""}<button class="btn sm ghost" data-act="offer-edit" data-id="${o.id}" aria-label="Uredi">${ic("edit", 16)}</button></div>`; }).join("")}</div>`).join("") : `<div class="card" style="grid-column:1/-1">${empty("tag", "Še ni ponudb", "Vnesi ceno iz spletne trgovine ali ponudbe dobavitelja. Povezava ostane shranjena.")}</div>`}</div>`;
+  <div class="toolbar"><div class="search-bar">${ic("search", 17)}<input type="search" id="oq" placeholder="Išči material …" value="${esc(ui.offerQ)}" aria-label="Iskanje ponudb"></div></div>
+  <div class="grid cols-2">${withO.length ? withO.map(x => {
+    const ch = priceChange(x.item.id);
+    return `<section class="panel"><button class="panel-h" data-item="${x.item.id}" style="width:100%;border-left:0;border-right:0;border-top:0;background:none;text-align:left;color:inherit;cursor:pointer">${avatar(x.item)}<h2 style="min-width:0"><span class="ell" style="display:block">${esc(x.item.name)}</span><span class="small muted" style="font-weight:400">${x.monthly ? "~" + nf.format(Math.round(x.monthly)) + " " + esc(x.item.unit) + "/mes" : esc(x.item.category || "")}</span></h2>${ch != null ? `<span class="pill ${ch > 3 ? "warn" : ch < -3 ? "ok" : "mute"} nodot">${ch > 0 ? "▲" : ch < 0 ? "▼" : ""} ${nf0.format(Math.abs(ch))} %</span>` : ""}</button>
+      ${x.offers.map((o, i) => { const sp = M.sup[o.supplierId], age = o.date ? -daysUntil(o.date) : null; return `<div class="lrow" style="min-height:50px"><span class="grow"><span class="t" style="display:block;font-weight:500">${esc(sp ? sp.name : "?")}</span><span class="s" style="display:block">${eur.format(num(o.price))} / ${nf.format(num(o.packSize) || 1)} ${esc(x.item.unit)}${age != null ? ` · <span style="color:${age > 90 ? "var(--warn)" : "inherit"}">${fmtShort(o.date)}</span>` : ""}</span></span><span class="r"><span class="tag ${i === 0 ? "best" : ""} num">${eur.format(o.unit)}</span>${i ? `<span class="xs faint num" style="display:block">+${nf0.format((o.unit / x.offers[0].unit - 1) * 100)} %</span>` : ""}</span>${o.url ? `<a class="btn sm ghost" href="${esc(o.url)}" target="_blank" rel="noopener" aria-label="Odpri trgovino" style="padding:0 8px">${ic("link", 16)}</a>` : ""}<button class="btn sm ghost" data-act="offer-edit" data-id="${o.id}" aria-label="Uredi" style="padding:0 8px">${ic("edit", 16)}</button></div>`; }).join("")}</section>`;
+  }).join("") : panel("Ponudbe", empty("tag", "Še ni ponudb", "Vnesi ceno iz spletne trgovine ali ponudbe dobavitelja – povezava ostane shranjena."))}</div>`;
 };
 
-/* ---------- STATS ---------- */
+/* ---------- STATISTIKA ---------- */
 function niceMax(v) { if (v <= 0) return 100; const p = Math.pow(10, Math.floor(Math.log10(v))); const f = v / p; return (f <= 1 ? 1 : f <= 2 ? 2 : f <= 2.5 ? 2.5 : f <= 5 ? 5 : 10) * p; }
 function barChart(data, cur) {
   const mx = niceMax(Math.max(...data.map(d => d.v)));
   return `<div class="chart"><div class="plot">${[0, .5, 1].map(t => `<div class="gl" style="bottom:${t * 100}%"><span>${eur0.format(mx * t)}</span></div>`).join("")}
     <div class="bars">${data.map(d => `<button class="col ${d.k === cur ? "cur" : ""}" data-tip="${esc(monthLabel(d.k))}: ${esc(eur.format(d.v))}" aria-label="${esc(monthLabel(d.k))}: ${esc(eur.format(d.v))}"><i style="height:${d.v / mx * 100}%"></i></button>`).join("")}</div></div>
-    <div class="xl">${data.map(d => `<span>${monthLabel(d.k).split(" ")[0]}</span>`).join("")}</div></div>`;
+    <div class="xl">${data.map((d, i) => `<span>${data.length > 8 && i % 2 ? "" : monthLabel(d.k).split(" ")[0]}</span>`).join("")}</div></div>`;
 }
 VIEWS.stats = () => {
   const n = ui.statsRange, months = lastMonths(n), agg = monthly(), cur = monthKey(today());
@@ -861,107 +1003,98 @@ VIEWS.stats = () => {
     Object.entries(a.sup).forEach(([sid, v]) => bySup[sid] = (bySup[sid] || 0) + v);
   });
   const full = months.filter(k => k !== cur), avg = full.length ? full.reduce((a, k) => a + sumV((agg[k] || {}).out), 0) / full.length : tot.out;
-  const fm = full, half = Math.floor(fm.length / 2), m1 = fm.slice(0, half), m2 = fm.slice(half);
-  const trend = id => { const a = m1.reduce((s, k) => s + ((((agg[k] || {}).out || {})[id]) || {q: 0}).q, 0) / (m1.length || 1), b = m2.reduce((s, k) => s + ((((agg[k] || {}).out || {})[id]) || {q: 0}).q, 0) / (m2.length || 1); if (!a && !b) return ""; if (!a) return '<span class="pill info">novo</span>'; const p = (b / a - 1) * 100; return `<span class="pill ${p > 15 ? "warn" : p < -15 ? "ok" : "mute"}">${p > 0 ? "▲" : p < 0 ? "▼" : ""} ${nf0.format(Math.abs(p))} %</span>`; };
+  const half = Math.floor(full.length / 2), m1 = full.slice(0, half), m2 = full.slice(half);
+  const trend = id => { const a = m1.reduce((s, k) => s + ((((agg[k] || {}).out || {})[id]) || {q: 0}).q, 0) / (m1.length || 1), b = m2.reduce((s, k) => s + ((((agg[k] || {}).out || {})[id]) || {q: 0}).q, 0) / (m2.length || 1); if (!a && !b) return ""; if (!a) return '<span class="pill info nodot">novo</span>'; const p = (b / a - 1) * 100; return `<span class="pill ${p > 15 ? "warn" : p < -15 ? "ok" : "mute"} nodot">${p > 0 ? "▲" : p < 0 ? "▼" : ""} ${nf0.format(Math.abs(p))} %</span>`; };
   const hb = (arr, fmt) => { const mx = Math.max(...arr.map(a => a[1]), 1); return `<div class="hbars">${arr.map(([l, v]) => `<div class="hb"><div class="top-l"><span>${esc(l)}</span><span>${fmt(v)}</span></div><div class="t"><i style="width:${v / mx * 100}%"></i></div></div>`).join("")}</div>`; };
   const top = Object.entries(byItem).filter(([id]) => M.byId[id]).sort((a, b) => b[1].v - a[1].v);
-  return `<h1 class="page">Statistika</h1><p class="page-sub">Vrednost porabe po nabavni ceni serije, iz katere je bil material porabljen.</p>
-  <div class="row" style="margin-bottom:14px"><div class="seg" style="flex:1;max-width:320px" data-tour="range">${[3, 6, 12].map(r => `<button data-range="${r}" aria-pressed="${n === r}">${r} mesecev</button>`).join("")}</div><button class="btn sm" data-act="export-usage">${ic("down", 16)} CSV</button></div>
-  <div class="tiles" style="margin-top:0">
-    <div class="tile"><span class="t-l">Poraba</span><span class="t-v">${eur0.format(tot.out)}</span><span class="t-s">${n} mesecev</span></div>
-    <div class="tile"><span class="t-l">Povprečno / mesec</span><span class="t-v">${eur0.format(avg)}</span><span class="t-s">zaključeni meseci</span></div>
-    <div class="tile"><span class="t-l">Nabava</span><span class="t-v">${eur0.format(tot.in)}</span><span class="t-s">prevzet material</span></div>
-    <div class="tile ${tot.waste ? "warn" : ""}"><span class="t-l">Odpis</span><span class="t-v">${eur0.format(tot.waste)}</span><span class="t-s">${tot.out ? nf.format(tot.waste / (tot.out + tot.waste) * 100) + " % porabe" : "potekel, poškodovan"}</span></div>
+  const rows = top.map(([id, r]) => { const it = M.byId[id]; return {id, it, r}; });
+  return head("Statistika porabe", "Vrednost po nabavni ceni serije, iz katere je bil material porabljen.",
+    `<div class="seg" data-tour="range" style="min-width:240px">${[3, 6, 12].map(r => `<button data-range="${r}" aria-pressed="${n === r}">${r} mes.</button>`).join("")}</div><button class="btn" data-act="export-usage">${ic("down", 17)} CSV</button>`) +
+  `<div class="kpis">
+    <div class="kpi"><span class="k-l">Poraba</span><span class="k-v">${eur0.format(tot.out)}</span><span class="k-s">zadnjih ${n} mesecev</span></div>
+    <div class="kpi"><span class="k-l">Povprečno na mesec</span><span class="k-v">${eur0.format(avg)}</span><span class="k-s">zaključeni meseci</span></div>
+    <div class="kpi"><span class="k-l">Nabava</span><span class="k-v">${eur0.format(tot.in)}</span><span class="k-s">prevzet material</span></div>
+    <div class="kpi ${tot.waste ? "warn" : ""}"><span class="k-l">${tot.waste ? '<span class="dot"></span>' : ""}Odpis</span><span class="k-v">${eur0.format(tot.waste)}</span><span class="k-s">${tot.out ? nf.format(tot.waste / (tot.out + tot.waste) * 100) + " % porabe" : "potekel, poškodovan"}</span></div>
   </div>
-  <div class="two-col">
-    <div><h2 class="sec">Poraba po mesecih</h2><div class="card card-pad">${barChart(out, cur)}</div></div>
-    <div><h2 class="sec">Nabava po mesecih</h2><div class="card card-pad">${barChart(inn, cur)}</div></div>
-    <div><h2 class="sec">Po kategorijah</h2><div class="card card-pad">${Object.keys(byCat).length ? hb(Object.entries(byCat).sort((a, b) => b[1] - a[1]), v => eur0.format(v)) : '<p class="muted small" style="margin:0">Ni podatkov.</p>'}</div></div>
-    <div><h2 class="sec">Po dobaviteljih</h2><div class="card card-pad">${Object.keys(bySup).length ? hb(Object.entries(bySup).map(([s, v]) => [(M.sup[s] || {}).name || "Neznan", v]).sort((a, b) => b[1] - a[1]), v => eur0.format(v)) : '<p class="muted small" style="margin:0">Ni podatkov.</p>'}</div></div>
+  <div class="grid cols-2">
+    ${panel("Poraba po mesecih", `<div class="panel-b">${barChart(out, cur)}</div>`)}
+    ${panel("Nabava po mesecih", `<div class="panel-b">${barChart(inn, cur)}</div>`)}
+    ${panel("Po kategorijah", `<div class="panel-b">${Object.keys(byCat).length ? hb(Object.entries(byCat).sort((a, b) => b[1] - a[1]), v => eur0.format(v)) : '<p class="muted small" style="margin:0">Ni podatkov.</p>'}</div>`)}
+    ${panel("Po dobaviteljih", `<div class="panel-b">${Object.keys(bySup).length ? hb(Object.entries(bySup).map(([s, v]) => [(M.sup[s] || {}).name || "Neznan", v]).sort((a, b) => b[1] - a[1]), v => eur0.format(v)) : '<p class="muted small" style="margin:0">Ni podatkov.</p>'}</div>`)}
   </div>
-  <h2 class="sec">Po materialu</h2><div class="card">${top.length ? top.map(([id, r]) => { const it = M.byId[id]; return `<button class="rowcard" data-item="${id}">${avatar(it)}<div class="grow"><div class="t">${esc(it.name)}</div><div class="s">${nf.format(r.q)} ${esc(it.unit)} · ${nf.format(Math.round(r.q / n * 10) / 10)}/mes · ${tot.out ? nf0.format(r.v / tot.out * 100) : 0} %${r.w ? " · odpis " + eur.format(r.w) : ""}</div></div><div style="text-align:right"><div class="num" style="font-weight:800">${eur0.format(r.v)}</div>${trend(id)}</div></button>`; }).join("") : `<div class="empty">V izbranem obdobju ni zabeležene porabe.</div>`}</div>`;
+  <div style="margin-top:16px">${panel("Po materialu", !rows.length ? `<div class="panel-empty">V izbranem obdobju ni zabeležene porabe.</div>` : wide()
+    ? `<div class="tablewrap"><table class="tbl"><thead><tr><th>Material</th><th class="r">Porabljeno</th><th class="r">Na mesec</th><th class="r">Vrednost</th><th class="r c-opt">Delež</th><th class="r c-opt">Odpis</th><th class="r">Trend</th></tr></thead><tbody>${rows.map(({id, it, r}) => `<tr class="click" data-item="${id}"><td><div class="cell-item">${avatar(it)}<span class="name ell">${esc(it.name)}</span></div></td><td class="r nowrap num">${nf.format(r.q)} <span class="sub">${esc(it.unit)}</span></td><td class="r num">${nf.format(Math.round(r.q / n * 10) / 10)}</td><td class="r num"><b>${eur.format(r.v)}</b></td><td class="r num c-opt">${tot.out ? nf0.format(r.v / tot.out * 100) : 0} %</td><td class="r num c-opt">${r.w ? eur.format(r.w) : "—"}</td><td class="r">${trend(id)}</td></tr>`).join("")}</tbody></table></div>`
+    : rows.map(({id, it, r}) => `<button class="lrow" data-item="${id}">${avatar(it)}<span class="grow"><span class="t" style="display:block">${esc(it.name)}</span><span class="s" style="display:block">${nf.format(r.q)} ${esc(it.unit)} · ${tot.out ? nf0.format(r.v / tot.out * 100) : 0} %</span></span><span class="r"><span class="num" style="font-weight:700;display:block">${eur0.format(r.v)}</span>${trend(id)}</span></button>`).join(""))}</div>`;
 };
 
-/* ---------- SUPPLIERS ---------- */
+/* ---------- DOBAVITELJI ---------- */
 VIEWS.suppliers = () => {
   const s = S(); const agg = monthly();
-  return `<h1 class="page">Dobavitelji</h1><p class="page-sub">Kontakti, roki dostave in minimalna naročila.</p>
-  <div class="row" style="margin-bottom:12px"><button class="btn primary sm" data-act="supplier" data-tour="add-supplier">${ic("plus", 16, 2.4)} Dodaj dobavitelja</button></div>
-  <div class="card">${s.suppliers.length ? s.suppliers.slice().sort((a, b) => a.name.localeCompare(b.name, "sl")).map(sp => {
-    const v = lastMonths(12).reduce((a, k) => a + (((agg[k] || {}).sup || {})[sp.id] || 0), 0);
-    return `<button class="rowcard" data-act="supplier" data-id="${sp.id}"><span class="ic">${ic("truck", 17)}</span><div class="grow"><div class="t">${esc(sp.name)}</div><div class="s">${[sp.email, sp.deliveryDays ? "dostava " + sp.deliveryDays + " dni" : "", v ? "12 mes: " + eur0.format(v) : ""].filter(Boolean).map(esc).join(" · ")}</div></div>${ic("right", 18)}</button>`;
-  }).join("") : empty("truck", "Ni dobaviteljev", "Dodaj vsaj enega za naročila in primerjavo cen.")}</div>`;
+  const list = s.suppliers.slice().sort((a, b) => a.name.localeCompare(b.name, "sl"));
+  const v12 = sp => lastMonths(12).reduce((a, k) => a + (((agg[k] || {}).sup || {})[sp.id] || 0), 0);
+  return head("Dobavitelji", "Kontakti, roki dostave in minimalna naročila.", `<button class="btn primary" data-act="supplier" data-tour="add-supplier">${ic("plus", 17, 2.4)} Dodaj dobavitelja</button>`) +
+    panel(`${list.length} dobaviteljev`, !list.length ? empty("truck", "Ni dobaviteljev", "Dodaj vsaj enega za naročila in primerjavo cen.") : wide()
+      ? `<div class="tablewrap"><table class="tbl"><thead><tr><th>Dobavitelj</th><th>E-pošta za naročila</th><th class="c-opt">Telefon</th><th class="r">Dostava</th><th class="r c-opt">Brezpl. dostava</th><th class="r">Nabava 12 mes.</th></tr></thead><tbody>${list.map(sp => `<tr class="click" data-act="supplier" data-id="${sp.id}"><td><div class="name">${esc(sp.name)}</div>${sp.contact ? `<div class="sub">${esc(sp.contact)}</div>` : ""}</td><td class="small">${sp.email ? esc(sp.email) : '<span class="pill warn">ni vnesena</span>'}</td><td class="small c-opt">${esc(sp.phone || "—")}</td><td class="r num">${sp.deliveryDays ? sp.deliveryDays + " dni" : "—"}</td><td class="r num c-opt">${num(sp.minOrder) ? eur0.format(num(sp.minOrder)) : "—"}</td><td class="r num">${eur0.format(v12(sp))}</td></tr>`).join("")}</tbody></table></div>`
+      : list.map(sp => `<button class="lrow" data-act="supplier" data-id="${sp.id}"><span class="ic-sq">${ic("truck", 16)}</span><span class="grow"><span class="t" style="display:block">${esc(sp.name)}</span><span class="s" style="display:block">${[sp.email || "brez e-pošte", sp.deliveryDays ? "dostava " + sp.deliveryDays + " dni" : ""].filter(Boolean).map(esc).join(" · ")}</span></span>${ic("right", 18)}</button>`).join(""));
 };
 
-/* ---------- MORE ---------- */
+/* ---------- VEČ ---------- */
 VIEWS.more = () => {
   const gp = guideProgress();
-  const mi = (go, icn, t, s, act) => `<button class="rowcard" ${act ? `data-act="${act}"` : `data-go="${go}"`}><span class="ic">${ic(icn, 17)}</span><div class="grow"><div class="t">${t}</div>${s ? `<div class="s">${s}</div>` : ""}</div>${ic("right", 18)}</button>`;
-  return `<h1 class="page">Več</h1><p class="page-sub">${demo ? "Vadnica" : esc(names[ME] || ME || "")}</p>
-  <div class="card card-pad" style="margin-bottom:14px"><div class="row" style="margin-bottom:10px"><span style="font-weight:700">Način prikaza</span><span class="spacer"></span></div>
-    <div class="seg"><button data-mode="simple" aria-pressed="${!adv()}">Preprost</button><button data-mode="advanced" aria-pressed="${adv()}">Napredni</button></div>
-    <p class="small muted" style="margin:10px 0 0">${adv() ? "Vse funkcije: statistika, ponudbe, inventura, vrednosti, uvoz." : "Samo najnujnejše: poraba, prevzem, zaloga in naročila. Idealno za vsakodnevno beleženje."}</p></div>
-  <div class="menu">
-    ${mi("guide", "book", "Učni načrt", gp.d + " / " + gp.n + " korakov opravljenih")}
-    ${mi("stats", "chart", "Statistika", "Poraba in stroški po mesecih")}
-    ${mi("offers", "tag", "Ponudbe in cene", "Primerjava dobaviteljev")}
-    ${mi("suppliers", "truck", "Dobavitelji", S().suppliers.length + " vnesenih")}
-    ${mi("settings", "gear", "Nastavitve ordinacije", "Podatki, predloga e-pošte, opozorila")}
+  const mi = (go, icn, t, s, act) => `<button class="lrow" ${act ? `data-act="${act}"` : `data-go="${go}"`}><span class="ic-sq">${ic(icn, 16)}</span><span class="grow"><span class="t" style="display:block">${t}</span>${s ? `<span class="s" style="display:block">${s}</span>` : ""}</span>${ic("right", 18)}</button>`;
+  return head("Več", demo ? "Vadnica – izmišljeni podatki" : esc(names[ME] || ME || "")) +
+  `<div class="grid cols-2">
+  <div style="display:flex;flex-direction:column;gap:16px;min-width:0">
+    ${panel("Način prikaza", `<div class="panel-b"><div class="seg"><button data-mode="simple" aria-pressed="${!adv()}">Preprost</button><button data-mode="advanced" aria-pressed="${adv()}">Napredni</button></div><p class="small muted" style="margin:10px 0 0">${adv() ? "Vse funkcije: statistika, ponudbe, vrednosti, inventura, uvoz." : "Samo najnujnejše: poraba, prevzem, zaloga, naročila. Idealno za vsakodnevno beleženje."}</p></div>`)}
+    ${panel("Videz", `<div class="panel-b"><div class="seg">${[["auto", "Sistem"], ["light", "Svetla"], ["dark", "Temna"]].map(([k, l]) => `<button data-theme-set="${k}" aria-pressed="${prefs.theme === k}">${l}</button>`).join("")}</div></div>`)}
+    ${panel("Pomoč", mi("guide", "book", "Učni načrt", gp.d + " / " + gp.n + " korakov") + (demo ? mi("", "x", "Zapri vadnico", "Nazaj na prave podatke", "demo-off") : mi("", "sparkle", "Vadnica", "Vadi na izmišljenih podatkih", "demo-on")))}
   </div>
-  <h2 class="sec">Podatki</h2><div class="menu">
-    ${mi("", "history", "Vsa gibanja", "Poraba, prevzemi, odpisi, inventure", "history")}
-    ${mi("", "count", "Inventura", "Popravi zalogo po štetju", "count")}
-    ${mi("", "up", "Uvoz iz Excela", "Prilepi seznam materiala", "import")}
-    ${mi("", "down", "Izvozi zalogo (CSV)", "Za Excel ali računovodstvo", "export-stock")}
-    ${mi("", "layers", "Varnostna kopija", "Prenesi ali obnovi vse podatke", "backup-menu")}
-  </div>
-  <h2 class="sec">Videz</h2><div class="card card-pad"><div class="seg">${[["auto", "Sistem"], ["light", "Svetla"], ["dark", "Temna"]].map(([k, l]) => `<button data-theme-set="${k}" aria-pressed="${prefs.theme === k}">${l}</button>`).join("")}</div></div>
-  <h2 class="sec">Račun</h2><div class="menu">
-    ${demo ? mi("", "x", "Zapri vadnico", "Nazaj na prave podatke", "demo-off") : mi("", "sparkle", "Vadnica", "Vadi na izmišljenih podatkih", "demo-on")}
-    ${!demo && SB ? mi("", "gear", "Spremeni geslo", "Za prijavo z e-pošto in geslom", "password") : ""}
-    ${!demo && SB ? mi("", "logout", "Odjava", esc(ME || ""), "logout") : ""}
-  </div>
+  <div style="display:flex;flex-direction:column;gap:16px;min-width:0">
+    ${panel("Upravljanje", mi("suppliers", "truck", "Dobavitelji", S().suppliers.length + " vnesenih") + mi("offers", "tag", "Ponudbe in cene", "Primerjava dobaviteljev") + mi("stats", "chart", "Statistika", "Poraba in stroški") + mi("settings", "gear", "Nastavitve ordinacije", "Podatki, predloga e-pošte, opozorila"))}
+    ${panel("Podatki", mi("", "history", "Vsa gibanja", "Poraba, prevzemi, odpisi", "history") + mi("", "count", "Inventura", "Popravi zalogo po štetju", "count") + mi("", "up", "Uvoz iz Excela", "Prilepi seznam materiala", "import") + mi("", "down", "Izvozi zalogo (CSV)", "Za Excel ali računovodstvo", "export-stock") + mi("", "layers", "Varnostna kopija", "Prenesi ali obnovi vse podatke", "backup-menu"))}
+    ${!demo && SB ? panel("Račun", mi("", "gear", "Spremeni geslo", "", "password") + mi("", "logout", "Odjava", esc(ME || ""), "logout")) : ""}
+  </div></div>
   <p class="xs faint" style="text-align:center;margin-top:22px">Subriloga · Subrident d.o.o.</p>`;
 };
 
-/* ---------- SETTINGS ---------- */
+/* ---------- NASTAVITVE ---------- */
 VIEWS.settings = () => {
   const st = settings();
-  return `<button class="btn ghost sm" data-go="more" style="padding-left:0">${ic("right", 16)} Nazaj</button><h1 class="page">Nastavitve ordinacije</h1><p class="page-sub">Uporabijo se v e-pošti za naročila in pri opozorilih.</p>
-  <form id="setForm" class="card card-pad"><div class="fgrid">
+  return head("Nastavitve ordinacije", "Uporabijo se v e-pošti za naročila in pri opozorilih.") +
+  `<form id="setForm" class="panel" style="max-width:760px"><div class="panel-b"><div class="fgrid">
     <div class="field full"><label for="s_clinic">Naziv ordinacije</label><input type="text" id="s_clinic" value="${esc(st.clinic)}" placeholder="npr. KG-DENT"></div>
     <div class="field full"><label for="s_addr">Naslov za dostavo</label><input type="text" id="s_addr" value="${esc(st.address)}"></div>
     <div class="field"><label for="s_sig">Podpis</label><input type="text" id="s_sig" value="${esc(st.signature)}" placeholder="Ime Priimek"></div>
     <div class="field"><label for="s_phone">Telefon</label><input type="text" id="s_phone" value="${esc(st.phone)}"></div>
     <div class="field"><label for="s_warn">Opozori na rok (dni prej)</label><input type="number" id="s_warn" min="1" value="${esc(st.warnDays)}"></div>
     <div class="field"><label for="s_safe">Varnostna rezerva (dni)</label><input type="number" id="s_safe" min="0" value="${esc(st.safetyDays)}"></div>
-    <div class="field full"><label for="s_tpl">Predloga e-pošte</label><textarea id="s_tpl" rows="12" style="font-size:14px">${esc(st.template)}</textarea>
+    <div class="field full"><label for="s_tpl">Predloga e-pošte za naročilo</label><textarea id="s_tpl" rows="12" style="font-size:14px">${esc(st.template)}</textarea>
       <span class="help">Oznake: {dobavitelj} {kontakt} {seznam} {ordinacija} {naslov} {podpis} {telefon} {datum} {skupaj}. Prva vrstica »Zadeva: …« postane zadeva.</span></div>
-  </div><div class="btns"><button class="btn" type="button" data-act="tpl-reset">Privzeta predloga</button><button class="btn primary" type="submit">Shrani</button></div></form>`;
+  </div><div class="btns"><button class="btn" type="button" data-act="tpl-reset">Privzeta predloga</button><button class="btn primary" type="submit">Shrani</button></div></div></form>`;
 };
 
-/* ---------- GUIDE ---------- */
+/* ---------- UČNI NAČRT ---------- */
 let openLesson = null;
 VIEWS.guide = () => {
   const gp = guideProgress(), steps = guideSteps();
   if (openLesson == null && gp.next) openLesson = gp.next.id;
-  return `<h1 class="page">Učni načrt</h1><p class="page-sub">Korak za korakom do popolne zaloge. Opravljeni koraki se obkljukajo sami.</p>
-  <div class="card guide-card" style="margin:0 0 16px"><div class="ring" style="--p:${Math.round(gp.d / gp.n * 100)}"><span>${Math.round(gp.d / gp.n * 100)}%</span></div><div style="flex:1"><div class="g-t">${gp.d === gp.n ? "Vse opravljeno – odlično!" : `${gp.d} od ${gp.n} korakov`}</div><div class="g-s">${gp.next ? "Naslednje: " + esc(gp.next.t) : "Subriloga je pripravljena za vsakdanjo rabo."}</div></div></div>
-  <div class="list">${steps.map((g, i) => { const d = g.done(); const nx = gp.next && gp.next.id === g.id; return `<div class="lesson ${d ? "done" : ""} ${nx ? "next" : ""} ${openLesson === g.id ? "open" : ""}">
-    <button class="lesson-head" data-lesson="${g.id}"><span class="n">${d ? ic("check", 16, 3) : i + 1}</span><div style="flex:1;min-width:0"><div class="lt">${esc(g.t)}</div><div class="ls">${esc(g.s)}</div></div><span class="chev">${ic("chev", 18)}</span></button>
+  return head("Učni načrt", "Korak za korakom do popolne zaloge. Opravljeni koraki se obkljukajo sami.") +
+  `<section class="panel" style="margin-bottom:14px"><div class="panel-b"><div class="row" style="justify-content:space-between;margin-bottom:8px"><b>${gp.d === gp.n ? "Vse opravljeno – odlično!" : `${gp.d} od ${gp.n} korakov`}</b><span class="small muted num">${Math.round(gp.d / gp.n * 100)} %</span></div><div class="progress"><i style="width:${Math.round(gp.d / gp.n * 100)}%"></i></div>${gp.next ? `<p class="small muted" style="margin:8px 0 0">Naslednje: ${esc(gp.next.t)}</p>` : ""}</div></section>
+  <div class="list" style="max-width:820px">${steps.map((g, i) => { const d = g.done(); const nx = gp.next && gp.next.id === g.id; return `<div class="lesson ${d ? "done" : ""} ${nx ? "next" : ""} ${openLesson === g.id ? "open" : ""}">
+    <button class="lesson-head" data-lesson="${g.id}"><span class="n">${d ? ic("check", 15, 3) : i + 1}</span><span style="flex:1;min-width:0"><span class="lt" style="display:block">${esc(g.t)}</span><span class="ls">${esc(g.s)}</span></span><span class="chev">${ic("chev", 18)}</span></button>
     <div class="lesson-body"><p>${esc(g.why)}</p><ol>${g.how.map(x => `<li>${esc(x)}</li>`).join("")}</ol>
-      <div class="row">${g.go ? `<button class="btn primary sm" data-show="${g.id}">${ic("sparkle", 16)} Pokaži mi</button>` : ""}${g.manual ? (guideDone[g.id] ? `<button class="btn sm" data-undone="${g.id}">Označi kot neopravljeno</button>` : `<button class="btn sm" data-markdone="${g.id}">${ic("check", 16)} Opravljeno</button>`) : ""}</div></div></div>`; }).join("")}</div>
-  <h2 class="sec">Vadnica</h2><div class="card card-pad"><p style="margin:0 0 12px" class="muted">Želiš najprej preizkusiti brez skrbi? Vadnica naloži izmišljen material, dobavitelje in pol leta porabe. Nič se ne shrani v pravo bazo.</p>${demo ? `<button class="btn" data-act="demo-off">Zapri vadnico</button>` : `<button class="btn soft" data-act="demo-on">${ic("sparkle", 16)} Odpri vadnico</button>`}</div>`;
+      <div class="row">${g.go ? `<button class="btn primary sm" data-show="${g.id}">${ic("sparkle", 15)} Pokaži mi</button>` : ""}${g.manual ? (guideDone[g.id] ? `<button class="btn sm" data-undone="${g.id}">Označi kot neopravljeno</button>` : `<button class="btn sm" data-markdone="${g.id}">${ic("check", 15)} Opravljeno</button>`) : ""}</div></div></div>`; }).join("")}</div>
+  <div style="max-width:820px;margin-top:16px">${panel("Vadnica", `<div class="panel-b"><p style="margin:0 0 12px" class="muted">Najprej preizkusi brez skrbi: vadnica naloži izmišljen material, dobavitelje in pol leta porabe. V pravo bazo se nič ne shrani.</p>${demo ? `<button class="btn" data-act="demo-off">Zapri vadnico</button>` : `<button class="btn soft" data-act="demo-on">${ic("sparkle", 16)} Odpri vadnico</button>`}</div>`)}</div>`;
 };
 
 /* ---------- spotlight ---------- */
 function spotlight(sel, text, title) {
   closeSpot();
-  const el = document.querySelector(sel);
+  const el = [...document.querySelectorAll(sel)].find(e => e.offsetParent !== null && e.getBoundingClientRect().width > 0);
   if (!el) { toast(text); return; }
   el.scrollIntoView({block: "center", behavior: "smooth"});
   setTimeout(() => {
-    const r = el.getBoundingClientRect(), pad = 6;
+    const r = el.getBoundingClientRect(), pad = 5;
     const veil = document.createElement("div"); veil.className = "spot-veil"; veil.id = "spotVeil";
     veil.innerHTML = `<div class="spot" style="left:${r.left - pad}px;top:${r.top - pad}px;width:${r.width + pad * 2}px;height:${r.height + pad * 2}px"></div>`;
     const tip = document.createElement("div"); tip.className = "spot-tip"; tip.id = "spotTip";
@@ -973,7 +1106,7 @@ function spotlight(sel, text, title) {
     if (below) tip.style.top = (r.bottom + 14) + "px"; else tip.style.bottom = (innerHeight - r.top + 14) + "px";
     const close = () => closeSpot();
     veil.onclick = close; $("#spotOk").onclick = close;
-  }, 350);
+  }, 380);
 }
 function closeSpot() { $("#spotVeil")?.remove(); $("#spotTip")?.remove(); }
 
@@ -982,7 +1115,7 @@ function openSheet(html, layer2) {
   closeSpot();
   const root = $(layer2 ? "#overlayRoot2" : "#overlayRoot");
   if (!layer2) $("#overlayRoot2").innerHTML = "";
-  root.innerHTML = `<div class="overlay" style="${layer2 ? "z-index:45" : ""}"><div class="sheet" role="dialog" aria-modal="true"><div class="handle"></div>${html}</div></div>`;
+  root.innerHTML = `<div class="overlay${layer2 ? " center" : ""}" style="${layer2 ? "z-index:45" : ""}"><div class="sheet" role="dialog" aria-modal="true">${html}</div></div>`;
   root.firstChild.addEventListener("click", e => { if (e.target === root.firstChild) closeSheet(); });
   const f = root.querySelector("[autofocus]"); if (f && matchMedia("(min-width:760px)").matches) setTimeout(() => f.focus(), 50);
 }
@@ -1279,7 +1412,7 @@ function orderOpen(id) {
     return `<div class="oline"><div style="min-width:0"><div style="font-weight:700">${esc(it.name)}</div><div class="xs muted">paket = ${nf.format(num(l.packSize))} ${esc(it.unit)}${l.code ? " · " + esc(l.code) : ""}</div></div>
       <div style="text-align:right">${edit ? `<button type="button" class="btn sm ghost" data-act="line-del" data-id="${id}" data-k="${k}" aria-label="Odstrani">${ic("x", 16)}</button>` : `<b class="num">${eur.format(num(l.packs) * num(l.packPrice))}</b>`}</div>
       ${edit || recv ? `<div class="inputs"><label>Paketov</label><input type="text" inputmode="decimal" id="ol_p${k}" value="${esc(l.packs)}" style="width:70px;text-align:right"><label>€/paket</label><input type="text" inputmode="decimal" id="ol_c${k}" value="${esc(String(l.packPrice ?? "").replace(".", ","))}" style="width:86px;text-align:right"></div>` : `<div class="xs muted" style="grid-column:1/-1">${nf.format(num(l.packs))} × ${eur.format(num(l.packPrice))}</div>`}
-      ${recv ? `<div class="inputs"><label>LOT</label><input type="text" id="ol_l${k}" class="mono" style="flex:1" autocapitalize="characters"><label>Rok</label><input type="date" id="ol_e${k}" style="flex:1"></div>` : ""}</div>`; }).join("") || `<p class="muted small">Naročilo je prazno – dodaj material spodaj.</p>`}</div>
+      ${recv ? `<div class="inputs2"><div class="field"><label for="ol_l${k}">LOT</label><input type="text" id="ol_l${k}" class="mono" autocapitalize="characters"></div><div class="field"><label for="ol_e${k}">Rok uporabe</label><input type="date" id="ol_e${k}"></div></div>` : ""}</div>`; }).join("") || `<p class="muted small">Naročilo je prazno – dodaj material spodaj.</p>`}</div>
   ${edit ? `<select id="od_add" style="margin-top:10px" aria-label="Dodaj material"><option value="">＋ Dodaj material …</option>${S().items.slice().sort((a, b) => a.name.localeCompare(b.name, "sl")).map(i => `<option value="${i.id}">${esc(i.name)}</option>`).join("")}</select>` : ""}
   <div class="row" style="margin:14px 0"><b style="font-size:17px">Skupaj ${eur.format(orderTotal(o))}</b>${sp && num(sp.minOrder) && orderTotal(o) < num(sp.minOrder) ? `<span class="pill warn">pod ${eur0.format(num(sp.minOrder))} za brezplačno dostavo</span>` : ""}</div>
   ${o.status !== "received" ? `<p class="sec-t">E-pošta za dobavitelja</p>
@@ -1668,9 +1801,36 @@ document.addEventListener("click", async e => {
   }
   const it = t.closest("[data-item]"); if (it && !t.closest("a")) { openItem(it.dataset.item); return; }
 });
-document.addEventListener("keydown", e => { if (e.key === "Escape") { closeSheet(); closeSpot(); } });
+/* globalno iskanje (namizje) */
+let gsSel = 0, gsHits = [];
+function gsRender() {
+  const q = $("#gq").value.toLowerCase().trim(), box = $("#gsRes");
+  if (!q) { box.hidden = true; box.innerHTML = ""; return; }
+  gsHits = M.list.filter(x => [x.item.name, x.item.code, x.item.location, x.item.category, x.item.gtin].some(v => String(v || "").toLowerCase().includes(q)))
+    .sort((a, b) => (a.item.name.toLowerCase().startsWith(q) ? 0 : 1) - (b.item.name.toLowerCase().startsWith(q) ? 0 : 1) || a.item.name.localeCompare(b.item.name, "sl")).slice(0, 8);
+  gsSel = Math.min(gsSel, Math.max(0, gsHits.length - 1));
+  box.innerHTML = gsHits.length ? gsHits.map((x, k) => `<button type="button" class="gs-item ${k === gsSel ? "sel" : ""}" data-gs="${x.item.id}">${avatar(x.item)}<span style="flex:1;min-width:0"><b class="ell" style="display:block">${esc(x.item.name)}</b><small class="muted ell" style="display:block">${esc([x.item.code, x.item.location].filter(Boolean).join(" · ") || x.item.category || "")}</small></span><span class="mono small">${nf.format(x.stock)} ${esc(x.item.unit || "")}</span></button>`).join("")
+    : `<div class="gs-item muted" style="cursor:default">Ni zadetkov za »${esc(q)}«</div>`;
+  box.hidden = false;
+}
+function gsClose() { const b = $("#gsRes"); if (b) { b.hidden = true; } }
+function gsPick(id) { $("#gq").value = ""; gsClose(); $("#gq").blur(); openItem(id); }
+document.addEventListener("mousedown", e => { const g = e.target.closest("[data-gs]"); if (g) { e.preventDefault(); gsPick(g.dataset.gs); return; } if (!e.target.closest("#gsearch")) gsClose(); });
+document.addEventListener("focusin", e => { if (e.target.id === "gq" && e.target.value) gsRender(); });
+document.addEventListener("keydown", e => {
+  if (e.target.id === "gq") {
+    if (e.key === "ArrowDown" || e.key === "ArrowUp") { e.preventDefault(); if (gsHits.length) { gsSel = (gsSel + (e.key === "ArrowDown" ? 1 : gsHits.length - 1)) % gsHits.length; gsRender(); } return; }
+    if (e.key === "Enter") { e.preventDefault(); if (!$("#gsRes").hidden && gsHits[gsSel]) gsPick(gsHits[gsSel].item.id); return; }
+    if (e.key === "Escape") { e.target.value = ""; gsClose(); e.target.blur(); return; }
+  }
+  if (e.key === "/" && !/^(INPUT|TEXTAREA|SELECT)$/.test(document.activeElement.tagName) && !document.activeElement.isContentEditable && isDesk() && !$("#app").hidden && !$("#overlayRoot").innerHTML) { e.preventDefault(); $("#gq").focus(); return; }
+  if (e.key === "Escape") { closeSheet(); closeSpot(); }
+});
+addEventListener("scroll", () => { const tb = $("#topbar"); if (tb) tb.classList.toggle("scrolled", scrollY > 4); }, {passive: true});
+let rzT; addEventListener("resize", () => { clearTimeout(rzT); rzT = setTimeout(() => { if (!$("#app").hidden && lastDesk !== null && isDesk() + "," + wide() + "," + wide(1180) !== lastDesk) render(); }, 120); });
 window.addEventListener("pagehide", () => stopScan());
 document.addEventListener("input", e => {
+  if (e.target.id === "gq") { gsSel = 0; gsRender(); return; }
   if (e.target.id === "q") { ui.q = e.target.value; $("#stockList").innerHTML = stockList(); }
   if (e.target.id === "oq") { ui.offerQ = e.target.value; render(); }
 });
@@ -1686,11 +1846,11 @@ document.addEventListener("pointermove", e => { if (!tip.hidden) { tip.style.lef
 document.addEventListener("pointerout", e => { if (e.target.closest("[data-tip]")) tip.hidden = true; });
 
 /* ================= LOGIN & BOOT ================= */
-const LOGO = document.querySelector(".logo-mark").outerHTML;
+const LOGO = document.querySelector(".brand svg.mark").outerHTML.replace('class="mark"', 'class="mark" style="width:48px;height:48px"');
 function showLogin(msg) {
   $("#app").hidden = true;
   const box = $("#login"); box.hidden = false;
-  if (!SB) { box.innerHTML = `<div class="card">${LOGO}<h1>Subri<span style="color:var(--brand)">loga</span></h1><p>Povezava z bazo ni nastavljena ali ni dosegljiva.</p><button class="btn" data-act="demo-on">${ic("sparkle", 16)} Odpri vadnico</button></div>`; return; }
+  if (!SB) { box.innerHTML = `<div class="card">${LOGO}<div><h1>Subri<span style="color:var(--brand)">loga</span></h1><p>Povezava z bazo ni nastavljena ali ni dosegljiva.</p></div><button class="btn" data-act="demo-on">${ic("sparkle", 16)} Odpri vadnico</button></div>`; return; }
   const saved = lsGet("email", "");
   box.innerHTML = `<form class="card" id="loginForm">${LOGO}<div><h1>Subri<span style="color:var(--brand)">loga</span></h1><p>Zaloga materiala ordinacije</p></div>
     <div class="field"><label for="lg_email">E-pošta</label><input type="email" id="lg_email" required autocomplete="username" value="${esc(saved)}"></div>
@@ -1734,7 +1894,7 @@ let started = false;
 async function start(session) {
   if (started) return; started = true;
   ME = session.user.email.toLowerCase();
-  $("#login").hidden = false; $("#login").innerHTML = `<div class="loading">${LOGO.replace('class="logo-mark"', 'class="logo-mark" style="margin:0 auto 14px;width:56px;height:56px"')}Nalagam zalogo …</div>`;
+  $("#login").hidden = false; $("#login").innerHTML = `<div class="loading"><div style="display:flex;justify-content:center;margin-bottom:14px">${LOGO}</div>Nalagam zalogo …</div>`;
   try { await loadAll(); }
   catch (e) { started = false; console.error(e); return showLogin("Podatkov ni bilo mogoče naložiti. Preveri, ali je tvoj e-naslov med člani."); }
   if (!names[ME]) { started = false; await SB.auth.signOut(); return showLogin("Prijava je uspela, a ta e-naslov ni v tabeli članov (members)."); }
