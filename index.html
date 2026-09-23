@@ -918,6 +918,7 @@ VIEWS.more = () => {
   <h2 class="sec">Videz</h2><div class="card card-pad"><div class="seg">${[["auto", "Sistem"], ["light", "Svetla"], ["dark", "Temna"]].map(([k, l]) => `<button data-theme-set="${k}" aria-pressed="${prefs.theme === k}">${l}</button>`).join("")}</div></div>
   <h2 class="sec">Račun</h2><div class="menu">
     ${demo ? mi("", "x", "Zapri vadnico", "Nazaj na prave podatke", "demo-off") : mi("", "sparkle", "Vadnica", "Vadi na izmišljenih podatkih", "demo-on")}
+    ${!demo && SB ? mi("", "gear", "Spremeni geslo", "Za prijavo z e-pošto in geslom", "password") : ""}
     ${!demo && SB ? mi("", "logout", "Odjava", esc(ME || ""), "logout") : ""}
   </div>
   <p class="xs faint" style="text-align:center;margin-top:22px">Subriloga · Subrident d.o.o.</p>`;
@@ -1103,7 +1104,7 @@ function openItem(id) {
 
 /* item form */
 function itemForm(id, preset) {
-  const i = id ? M.byId[id] : Object.assign({unit: "kos", packSize: 1}, preset && {gtin: preset.gtin});
+  const i = id ? M.byId[id] : Object.assign({unit: "kos", packSize: 1}, preset && {gtin: preset.gtin, name: preset.name, code: preset.code, packSize: preset.packSize || 1, note: preset.note});
   preset = preset || {};
   const isNew = !id;
   const extra = `<div class="fgrid" style="margin-top:8px">
@@ -1519,10 +1520,27 @@ function handleScan(p, mode, cb) {
   const det = [p.gtin && `Koda <span class="mono">${esc(p.gtin)}</span>`, p.lot && `LOT <span class="mono">${esc(p.lot)}</span>`, p.expiry && `rok ${fmtDate(p.expiry)}`].filter(Boolean).join(" · ") || `<span class="mono">${esc(p.raw)}</span>`;
   openSheet(`${sheetHead("Nova koda", "Te kode še ne poznam. Poveži jo z materialom – naslednjič bo prepoznana takoj.")}
     <div class="picked"><span class="ic" style="width:36px;height:36px;border-radius:10px;display:grid;place-items:center;background:var(--acc-soft);color:var(--acc)">${ic("layers", 18)}</span><div class="grow small">${det}</div></div>
-    <p class="sec-t">Poveži z obstoječim materialom</p>${pickerHTML("lk")}
-    <div class="btns"><button class="btn primary" type="button" id="scanNew">${ic("plus", 16, 2.4)} Nov material s to kodo</button></div>`);
+    <div id="lookup"></div>
+    <div class="btns" style="margin-top:4px"><button class="btn primary" type="button" id="scanNew">${ic("plus", 16, 2.4)} Nov material s to kodo</button></div>
+    <p class="sec-t">… ali poveži z obstoječim materialom</p>${pickerHTML("lk")}`);
+  let found = null;
   bindPicker("lk", async id => { if (p.key) await safe(() => patch("items", id, {gtin: p.key}), "Koda povezana"); M = derive(); actOnScan(id, p, mode); });
-  $("#scanNew").onclick = () => { itemForm.added = 0; itemForm(null, {gtin: p.key, lot: p.lot, expiry: p.expiry}); };
+  $("#scanNew").onclick = () => { itemForm.added = 0; itemForm(null, Object.assign({gtin: p.key, lot: p.lot, expiry: p.expiry}, found ? {name: found.name, code: found.reference, packSize: found.packQty || 1, note: [found.manufacturer && "Proizvajalec: " + found.manufacturer, "Vir: " + found.source].filter(Boolean).join(" · ")} : {})); };
+  if (p.gtin && /^\d{14}$/.test(p.gtin)) lookupProduct(p.gtin).then(r => {
+    const box = $("#lookup"); if (!box) return;
+    if (r && r.found) {
+      found = r;
+      box.innerHTML = `<div class="card card-pad" style="margin:4px 0 8px;border-color:var(--ok)"><div class="row" style="flex-wrap:nowrap;align-items:flex-start"><span class="pill ok">${ic("check", 12, 3)} najdeno</span><span class="xs faint" style="margin-left:auto">${esc(r.source)}</span></div><div style="font-weight:700;margin-top:8px">${esc(r.name)}</div><div class="small muted">${[r.manufacturer, r.reference && "ref. " + r.reference, r.packQty > 1 && r.packQty + " v paketu"].filter(Boolean).map(esc).join(" · ")}</div></div>`;
+      $("#scanNew").innerHTML = `${ic("plus", 16, 2.4)} Dodaj »${esc((r.brand || r.name).slice(0, 28))}«`;
+      const q = $("#lk_q"); if (q && r.brand) { q.value = r.brand.replace(/[™®]/g, "").split(/\s+/)[0]; q.dispatchEvent(new Event("input")); }
+    } else box.innerHTML = `<p class="small muted" style="margin:4px 0 8px">V javnih bazah (EUDAMED, FDA) izdelka ni – vpiši ime ročno.</p>`;
+  });
+  else $("#lookup").innerHTML = "";
+}
+async function lookupProduct(gtin) {
+  const box = $("#lookup"); if (box) box.innerHTML = `<p class="small muted" style="margin:4px 0 8px">Iščem izdelek v javnih bazah medicinskih pripomočkov …</p>`;
+  if (demo || !SB) return demo && gtin === "05060586105783" ? {found: true, source: "FDA GUDID", name: "Filtek Supreme Ultra, brizga 4 g – A3B", brand: "Filtek", manufacturer: "3M", reference: "6028A3B", packQty: 1} : {found: false};
+  try { const {data} = await SB.functions.invoke("poisci-izdelek", {body: {gtin}}); return data || {found: false}; } catch (e) { return {found: false}; }
 }
 function actOnScan(id, p, mode) {
   const x = M.it[id];
@@ -1644,6 +1662,7 @@ document.addEventListener("click", async e => {
       case "demo-on": D = makeDemo(); demo = true; closeSheet(); go("home"); toast("Vadnica odprta"); break;
       case "demo-off": demo = false; D = null; closeSheet(); if (live) go("home"); else showLogin(); break;
       case "logout": await SB.auth.signOut(); location.reload(); break;
+      case "password": passwordSheet(false); break;
     }
     return;
   }
@@ -1674,24 +1693,41 @@ function showLogin(msg) {
   if (!SB) { box.innerHTML = `<div class="card">${LOGO}<h1>Subri<span style="color:var(--brand)">loga</span></h1><p>Povezava z bazo ni nastavljena ali ni dosegljiva.</p><button class="btn" data-act="demo-on">${ic("sparkle", 16)} Odpri vadnico</button></div>`; return; }
   const saved = lsGet("email", "");
   box.innerHTML = `<form class="card" id="loginForm">${LOGO}<div><h1>Subri<span style="color:var(--brand)">loga</span></h1><p>Zaloga materiala ordinacije</p></div>
-    <div class="field"><label for="lg_email">E-pošta</label><input type="email" id="lg_email" required autocomplete="email" value="${esc(saved)}"></div>
-    <div class="field" id="codeField" hidden><label for="lg_code">Koda iz e-pošte</label><input type="text" id="lg_code" inputmode="numeric" autocomplete="one-time-code" maxlength="10" style="font-size:22px;letter-spacing:6px;text-align:center;font-weight:800"><span class="help">Lahko pa klikneš povezavo v e-pošti.</span></div>
+    <div class="field"><label for="lg_email">E-pošta</label><input type="email" id="lg_email" required autocomplete="username" value="${esc(saved)}"></div>
+    <div class="field"><label for="lg_pass">Geslo</label><input type="password" id="lg_pass" required autocomplete="current-password" ${saved ? "autofocus" : ""}></div>
     <div class="err" id="lg_err">${msg ? esc(msg) : ""}</div>
-    <button class="btn primary block" type="submit" id="lg_btn">Pošlji kodo</button>
+    <button class="btn primary block" type="submit" id="lg_btn">Prijava</button>
+    <button class="btn ghost block" type="button" id="lg_forgot">Pozabljeno geslo / prvič nastavi geslo</button>
     <button class="btn ghost block" type="button" data-act="demo-on">${ic("sparkle", 16)} Poglej vadnico brez prijave</button></form>`;
-  let step = "email";
   $("#loginForm").onsubmit = async e => {
     e.preventDefault(); const email = fv("lg_email").toLowerCase(); $("#lg_err").textContent = ""; $("#lg_btn").disabled = true; lsSet("email", email);
-    if (step === "email") {
-      const {error} = await SB.auth.signInWithOtp({email, options: {shouldCreateUser: false, emailRedirectTo: location.href.split("#")[0]}});
-      $("#lg_btn").disabled = false;
-      if (error) { $("#lg_err").textContent = /signup|not found|not allowed/i.test(error.message) ? "Ta e-naslov ni med uporabniki. Prosi skrbnika, da te doda." : "Pošiljanje ni uspelo: " + error.message; return; }
-      step = "code"; $("#codeField").hidden = false; $("#lg_code").focus(); $("#lg_btn").textContent = "Prijava";
-    } else {
-      const {error} = await SB.auth.verifyOtp({email, token: fv("lg_code"), type: "email"});
-      $("#lg_btn").disabled = false;
-      if (error) { $("#lg_err").textContent = "Koda ni pravilna ali je potekla."; return; }
-    }
+    const {error} = await SB.auth.signInWithPassword({email, password: $("#lg_pass").value});
+    $("#lg_btn").disabled = false;
+    if (error) $("#lg_err").textContent = /invalid/i.test(error.message) ? "Napačna e-pošta ali geslo." : "Prijava ni uspela: " + error.message;
+  };
+  $("#lg_forgot").onclick = async () => {
+    const email = fv("lg_email").toLowerCase();
+    if (!email) { $("#lg_err").textContent = "Najprej vpiši svojo e-pošto."; return; }
+    lsSet("email", email);
+    const {error} = await SB.auth.resetPasswordForEmail(email, {redirectTo: location.href.split("#")[0]});
+    $("#lg_err").style.color = error ? "" : "var(--ok)";
+    $("#lg_err").textContent = error ? "Pošiljanje ni uspelo: " + error.message : "Poslali smo e-pošto s povezavo. Klikni jo in nastavi novo geslo.";
+  };
+}
+function passwordSheet(first) {
+  openSheet(`${sheetHead(first ? "Nastavi novo geslo" : "Spremeni geslo", "Vsaj 8 znakov. Brskalnik ali telefon si ga lahko zapomni.")}
+    <form id="pwForm"><div class="fgrid">
+      <div class="field full"><label for="pw1">Novo geslo</label><input type="password" id="pw1" autocomplete="new-password" minlength="8" required autofocus></div>
+      <div class="field full"><label for="pw2">Ponovi geslo</label><input type="password" id="pw2" autocomplete="new-password" minlength="8" required></div>
+    </div><div class="err small" id="pw_err" style="color:var(--crit);margin-top:8px"></div>
+    <div class="btns"><button type="button" class="btn" data-act="close">Prekliči</button><button class="btn primary" type="submit">Shrani geslo</button></div></form>`);
+  $("#pwForm").onsubmit = async e => {
+    e.preventDefault(); const a = $("#pw1").value, b = $("#pw2").value;
+    if (a.length < 8) return $("#pw_err").textContent = "Geslo mora imeti vsaj 8 znakov.";
+    if (a !== b) return $("#pw_err").textContent = "Gesli se ne ujemata.";
+    const {error} = await SB.auth.updateUser({password: a});
+    if (error) return $("#pw_err").textContent = "Ni uspelo: " + error.message;
+    closeSheet(); toast("Geslo shranjeno");
   };
 }
 let started = false;
@@ -1716,7 +1752,12 @@ async function start(session) {
 (async function boot() {
   if (window.supabase && /^https:\/\//.test(SUPABASE_URL) && SUPABASE_KEY.length > 20) SB = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY, {auth: {persistSession: true, autoRefreshToken: true}});
   if (!SB) return showLogin();
-  SB.auth.onAuthStateChange((ev, session) => { if (session && !started) start(session); });
+  const recovering = /type=recovery/.test(location.hash);
+  SB.auth.onAuthStateChange((ev, session) => {
+    if (ev === "PASSWORD_RECOVERY") { const open = () => live ? passwordSheet(true) : setTimeout(open, 300); open(); }
+    if (session && !started) start(session);
+  });
+  if (recovering) { const open = () => live ? (history.replaceState(null, "", location.pathname), passwordSheet(true)) : setTimeout(open, 300); setTimeout(open, 300); }
   const {data} = await SB.auth.getSession();
   if (data.session) start(data.session); else showLogin();
 })();
